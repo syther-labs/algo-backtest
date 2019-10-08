@@ -1,0 +1,17 @@
+name: algo-backtester
+version: 0.1.0
+
+authors:
+  - Michael Roher <roher4@gmail.com>
+
+targets:
+  algo-backtester:
+    main: src/algo-backtester.cr
+
+dependencies:
+  halite:
+    github: icyleaf/halite
+
+crystal: 0.28.0
+
+license: MIT
