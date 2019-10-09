@@ -1,6 +1,6 @@
 module Algo::Backtester
-abstract class AbstractDataDownloader
-    abstract def self.query(ticker : String, start_date : Time, end_date : Time)
-    abstract def self.query(ticker : String)
-end
+  abstract class AbstractDataDownloader
+    abstract def query(symbol : String, start_date : Time, end_date : Time)
+    abstract def query(symbol : String)
+  end
 end
