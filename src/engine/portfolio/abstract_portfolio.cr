@@ -1,8 +1,9 @@
 require "../event/*"
 
 module Algo::Backtester
-  class AbstractPortfolio
-    # abstract def on_signal(event : Event)
-
+  abstract class AbstractPortfolio
+    abstract def on_signal(event : Event, data_handler : DataHandler)
+    abstract def on_fill(event : Event, data_handler : DataHandler)
+    abstract def is_invested(symbol : String) : Position
   end
 end

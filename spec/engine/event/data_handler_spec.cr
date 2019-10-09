@@ -95,11 +95,11 @@ describe Algo::Backtester::DataHandler do
       new_bar.timestamp = new_date
 
       dh.update_latest(old_bar)
-      dh.latest("AAPL").try {|t| t.timestamp.should eq(old_date) }
+      dh.latest("AAPL").try { |t| t.timestamp.should eq(old_date) }
 
       # Should replace old bar with new bar
       dh.update_latest(new_bar)
-      dh.latest("AAPL").try {|t| t.timestamp.should eq(new_date) }
+      dh.latest("AAPL").try { |t| t.timestamp.should eq(new_date) }
     end
   end
 
