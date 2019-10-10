@@ -7,18 +7,18 @@ module Algo::Backtester
   class TiingoDataDownloader < AbstractDataDownloader
     private struct TiingoResponseBar
       JSON.mapping(
-        adj_close: {type: Float32, setter: false, key: "adjClose"},
-        adj_high: {type: Float32, setter: false, key: "adjHigh"},
-        adj_low: {type: Float32, setter: false, key: "adjLow"},
-        adj_open: {type: Float32, setter: false, key: "adjOpen"},
-        adj_volume: {type: Int32, setter: false, key: "adjVolume"},
-        close: {type: Float32, setter: false},
+        adj_close: {type: Float64, setter: false, key: "adjClose"},
+        adj_high: {type: Float64, setter: false, key: "adjHigh"},
+        adj_low: {type: Float64, setter: false, key: "adjLow"},
+        adj_open: {type: Float64, setter: false, key: "adjOpen"},
+        adj_volume: {type: Int64, setter: false, key: "adjVolume"},
+        close: {type: Float64, setter: false},
         timestamp: {type: Time, key: "date"},
-        div_cash: {type: Float32, setter: false, key: "divCash"},
-        high: {type: Float32, setter: false},
-        low: {type: Float32, setter: false},
-        split_factor: {type: Float32, setter: false, key: "splitFactor"},
-        volume: {type: Int32, setter: false}
+        div_cash: {type: Float64, setter: false, key: "divCash"},
+        high: {type: Float64, setter: false},
+        low: {type: Float64, setter: false},
+        split_factor: {type: Float64, setter: false, key: "splitFactor"},
+        volume: {type: Int64, setter: false}
       )
     end
 

@@ -11,6 +11,9 @@ module Algo::Backtester
     # the total cost of the filled order incl commission and fees
     property cost : Float64
 
+    def initialize(@timestamp, @symbol, @direction, @quantity, @price, @commission, @exchange_fee, @cost)
+    end
+
     def value : Float64
       return quantity * price
     end

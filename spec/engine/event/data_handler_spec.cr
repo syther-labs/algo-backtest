@@ -1,14 +1,4 @@
 require "../../spec_helper"
-require "../../../src/engine/event/bar.cr"
-require "../../../src/engine/event/data_handler.cr"
-require "json"
-
-def create_bar
-  Algo::Backtester::Bar.new(timestamp: Time.now, symbol: "AAPL", adj_close: 224.4_f32,
-    adj_high: 228.06_f32, adj_low: 224.33_f32, adj_open: 225.82_f32,
-    adj_volume: 29282700, close: 224.4_f32, div_cash: 0.0_f32, high: 228.06_f32,
-    low: 224.33_f32, split_factor: 1.0_f32, volume: 29282700)
-end
 
 describe Algo::Backtester::DataHandler do
   describe "#reset" do

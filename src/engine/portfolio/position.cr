@@ -1,7 +1,7 @@
 module Algo::Backtester
   class Position
     # current qty of the position, positive on BOT position, negativ on SLD position
-    @quantity : Int64 = 0
+    getter quantity : Int64 = 0_i64
     @quantity_bht : Int64 = 0_i64 # how many bought
     @quantity_sld : Int64 = 0_i64 # how many sold
 
@@ -29,6 +29,7 @@ module Algo::Backtester
     def initialize(fill : FillEvent)
       @symbol = fill.symbol
       @timestamp = fill.timestamp
+      update_helper!(fill)
     end
 
     def update!(fill : FillEvent)
@@ -45,43 +46,9 @@ module Algo::Backtester
     private def update_helper!(fill : FillEvent)
       case fill.direction
       when Algo::Backtester::Direction::BOT
-        # if position is long
-        if @quantity >= 0
-          @cost_basis += fill.net_value
-        else
-          # position is short, closing partially out
-          @cost_basis += abs(fill.quantity) / @quantity * @cost_basis
-          @real_profit_loss += fill.quantity * (@avg_price_net - fill.price) - fill.cost
-        end
-
-        @avg_price = ((abs(@quantity) * @avg_price) + (fill.quantity * fill.price)) / (abs(@quantity) + fill.quantity)
-        @avg_price_net = (abs(@quantity) * @avg_price_net + fill.net_value) / (abs(@quantity) + fill.quantity)
-        @avg_price_bht = ((@quantity_bht * @avg_price_bht) + (fill.quantity * fill.price)) / (quantity_bht + fill.quantity)
-
-        # update position quantity
-        @quantity += fill.quantity
-        @quantity_bht += fill.quantity
-
-        @value_bht = @quantity_bht * @avg_price_bht
-        @net_value_bht += fill.net_value
+        update_helper_bought!(fill)
       when Algo::Backtester::Direction::SLD
-        # position is long, closing partially out
-        if @quantity >= 0
-          @cost_basis -= abs(fill.quantity) / @quantity * @cost_basis
-          @real_profit_loss += abs(fill.quantity) * (@fill_price - @avg_price_net) - fill.cost
-        else # position is short, adding to position
-          @cost_basis -= fill.net_value
-        end
-
-        @avg_price = ((abs(@quantity) * @avg_price) + (fill.quantity * fill.price)) / (abs(@quantity) + fill.quantity)
-        @avg_price_net = (abs(@quantity) * @avg_price_net + fill.net_value) / (abs(@quantity) + fill.quantity)
-        @avg_price_sld = ((@quantity_bht * @avg_price_sld) + (fill.quantity * fill.price)) / (quantity_sld + fill.quantity)
-
-        @quantity -= fill.quantity
-        @quantity_sld += fill.quantity
-
-        @value_sld = @quantity_sld * @avg_price_sld
-        @net_value_sld += fill.net_value
+        update_helper_sold!(fill)
       end
 
       @commission += fill.commission
@@ -90,7 +57,49 @@ module Algo::Backtester
       @value = @value_sld - @value_bht
       @net_value = @value - @cost
 
-      update_value(fill.price)
+      update_value_helper!(fill.price)
+    end
+
+    private def update_helper_bought!(fill : FillEvent)
+      # if position is long
+      if @quantity >= 0
+        @cost_basis += fill.net_value
+      else
+        # position is short, closing partially out
+        @cost_basis += abs(fill.quantity) / @quantity * @cost_basis
+        @real_profit_loss += fill.quantity * (@avg_price_net - fill.price) - fill.cost
+      end
+
+      @avg_price = ((abs(@quantity) * @avg_price) + (fill.quantity * fill.price)) / (abs(@quantity) + fill.quantity)
+      @avg_price_net = (abs(@quantity) * @avg_price_net + fill.net_value) / (abs(@quantity) + fill.quantity)
+      @avg_price_bht = ((@quantity_bht * @avg_price_bht) + (fill.quantity * fill.price)) / (quantity_bht + fill.quantity)
+
+      # update position quantity
+      @quantity += fill.quantity
+      @quantity_bht += fill.quantity
+
+      @value_bht = @quantity_bht * @avg_price_bht
+      @net_value_bht += fill.net_value
+    end
+
+    private def update_helper_sold!(fill : FillEvent)
+      # position is long, closing partially out
+      if @quantity >= 0
+        @cost_basis -= abs(fill.quantity) / @quantity * @cost_basis
+        @real_profit_loss += abs(fill.quantity) * (@fill_price - @avg_price_net) - fill.cost
+      else # position is short, adding to position
+        @cost_basis -= fill.net_value
+      end
+
+      @avg_price = ((abs(@quantity) * @avg_price) + (fill.quantity * fill.price)) / (abs(@quantity) + fill.quantity)
+      @avg_price_net = (abs(@quantity) * @avg_price_net + fill.net_value) / (abs(@quantity) + fill.quantity)
+      @avg_price_sld = ((@quantity_bht * @avg_price_sld) + (fill.quantity * fill.price)) / (quantity_sld + fill.quantity)
+
+      @quantity -= fill.quantity
+      @quantity_sld += fill.quantity
+
+      @value_sld = @quantity_sld * @avg_price_sld
+      @net_value_sld += fill.net_value
     end
 
     private def update_value_helper!(latest_price : Float64)

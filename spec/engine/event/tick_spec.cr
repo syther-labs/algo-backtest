@@ -1,8 +1,4 @@
 require "../../spec_helper"
-require "../../../src/engine/event/signal_event.cr"
-require "../../../src/engine/event/tick.cr"
-require "../../../src/engine/portfolio/metric.cr"
-require "json"
 
 def create_task
   dir = Algo::Backtester::Direction::EXIT

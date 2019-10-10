@@ -1,23 +1,4 @@
 require "../../spec_helper"
-require "../../../src/engine/portfolio/order_book.cr"
-require "../../../src/engine/event/order_event.cr"
-require "json"
-
-def create_order
-  Algo::Backtester::OrderEvent.new(
-    id: 1_i64,
-    symbol: "ACME",
-    timestamp: Time.now,
-    order_type: Algo::Backtester::OrderType::Market,
-    direction: Algo::Backtester::Direction::EXIT,
-    status: Algo::Backtester::OrderStatus::None,
-    asset_type: "Gold",
-    quantity: 1_i64,
-    quantity_filled: 1_i64,
-    limit_price: 1.0,
-    stop_price: 1.0
-  )
-end
 
 describe Algo::Backtester::OrderBook do
   it "should add an order to an empty orderbook" do

@@ -29,9 +29,9 @@ module Algo::Backtester
     property status : OrderStatus
     property asset_type : String
     property quantity : Int64
-    property quantity_filled : Int64
-    property limit_price : Float64
-    property stop_price : Float64
+    property quantity_filled : Int64?
+    property limit_price : Float64?
+    property stop_price : Float64?
 
     def initialize(@id, @symbol, @timestamp, @order_type, @direction, @status, @asset_type,
                    @quantity, @quantity_filled, @limit_price, @stop_price)
