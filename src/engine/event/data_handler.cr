@@ -11,9 +11,9 @@ module Algo::Backtester
                    @history = [] of Bar)
     end
 
-    def next!
+    def next! : Bar
       if @stream.empty?
-        return false
+        raise Exception.new("Next called on an empty stream")
       end
 
       dh = @stream.shift
@@ -25,14 +25,18 @@ module Algo::Backtester
       # update list of data events for single symbol
       update_list(dh)
 
-      return true
+      return dh
     end
 
-    def latest(symbol : String)
+    def empty?
+      return stream.empty?
+    end
+
+    def latest(symbol : String) : Bar?
       return @latest[symbol]?
     end
 
-    def list(symbol : String)
+    def list(symbol : String) : Array(Bar)?
       return @list[symbol]?
     end
 

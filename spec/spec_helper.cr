@@ -19,7 +19,7 @@ def create_order(args : NamedTuple? = nil)
     id:              1_i64,
     symbol:          "ACME",
     timestamp:       Time.now,
-    order_type:      Algo::Backtester::OrderType::Market,
+    type:            Algo::Backtester::OrderType::Market,
     direction:       Algo::Backtester::Direction::EXIT,
     status:          Algo::Backtester::OrderStatus::None,
     asset_type:      "Gold",

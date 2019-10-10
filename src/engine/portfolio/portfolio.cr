@@ -17,22 +17,26 @@ module Algo::Backtester
     def on_signal(signal : SignalEvent, data_handler : DataHandler)
       # Todo figure out how to set this dynamically
       initial_order = OrderEvent.new(
+        id: -1_i64,
         timestamp: signal.timestamp,
         symbol: signal.symbol,
         direction: signal.direction,
-        order_type: OrderType::MarketOrder,
-        order_status: OrderStatus::Submitted,
+        type: OrderType::Market,
+        status: OrderStatus::Submitted,
+        quantity: 1_i64, # to be overwritten by sizer.
         asset_type: "SECURITY" # is this a parameter?
       )
-      latest_price = data_handler.latest(signal.symbol)
+      unless latest_price = data_handler.latest(signal.symbol)
+        raise Exception.new("trying to add signal for symbol with no data")
+      end
 
-      sized_order = @size_handler.size_order(initial_order)
+      sized_order = @size_handler.size_order(initial_order, latest_price, self)
 
       return sized_order
     end
 
     def on_fill(fill : FillEvent, data_handler : DataHandler)
-      if @holdings.has?(fill.symbol)
+      if @holdings.has_key?(fill.symbol)
         pos = @holdings[fill.symbol]
         pos.update!(fill)
         @holdings[fill.symbol] = pos
@@ -75,14 +79,14 @@ module Algo::Backtester
       return nil
     end
 
-    def update(bar : Bar)
+    def update!(bar : Bar)
       if pos = is_invested(bar.symbol)
-        pos.update_value(bar)
+        pos.update_value!(bar)
         @holdings[bar.symbol] = pos
       end
     end
 
-    def reset
+    def reset!
       @initial_cash = DEFAULT_INITIAL_CASH
       @cash = @initial_cash
       @value = @initial_cash

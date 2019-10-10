@@ -1,8 +1,13 @@
-require "./abstract_algorithm.cr"
-
 module Algo::Backtester
   class AlgorithmStack < AbstractAlgorithm
-    @stack = [] of AbstractAlgorithm
+    property stack : Array(AbstractAlgorithm)
+
+    def initialize(
+      @run_always = false,
+      @value = 0_i64,
+      @stack = [] of AbstractAlgorithm
+    )
+    end
 
     def run(strategy : AbstractStrategy)
       @stack.each do |algo|

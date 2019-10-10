@@ -25,7 +25,7 @@ module Algo::Backtester
   struct OrderEvent < AbstractEvent
     property direction : Direction
     property id : Int64
-    property order_type : OrderType
+    property type : OrderType
     property status : OrderStatus
     property asset_type : String
     property quantity : Int64
@@ -33,8 +33,8 @@ module Algo::Backtester
     property limit_price : Float64?
     property stop_price : Float64?
 
-    def initialize(@id, @symbol, @timestamp, @order_type, @direction, @status, @asset_type,
-                   @quantity, @quantity_filled, @limit_price, @stop_price)
+    def initialize(@id, @symbol, @timestamp, @type, @direction, @status, @asset_type,
+                   @quantity, @quantity_filled = nil, @limit_price = nil, @stop_price = nil)
     end
 
     def cancel

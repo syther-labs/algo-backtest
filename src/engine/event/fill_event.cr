@@ -20,7 +20,7 @@ module Algo::Backtester
 
     def net_value : Float64
       nv = value()
-      nv += direction == Direction::BOT ? cost : -cost
+      nv += direction == Direction::BGHT ? cost : -cost
       return nv
     end
   end

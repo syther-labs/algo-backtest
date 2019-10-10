@@ -15,8 +15,8 @@ module Algo::Backtester
     abstract def is_invested(symbol : String) : Position?
     abstract def is_long(symbol : String) : Position?
     abstract def is_short(symbol : String) : Position?
-    abstract def update(bar : Bar)
-    abstract def reset
+    abstract def update!(bar : Bar)
+    abstract def reset!
     abstract def value : Float64
   end
 end

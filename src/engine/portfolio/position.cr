@@ -1,30 +1,32 @@
 module Algo::Backtester
   class Position
-    # current qty of the position, positive on BOT position, negativ on SLD position
+    # current qty of the position, positive on BOHT position, negativ on SLD position
+    getter symbol : String
     getter quantity : Int64 = 0_i64
-    @quantity_bht : Int64 = 0_i64 # how many bought
-    @quantity_sld : Int64 = 0_i64 # how many sold
+    getter timestamp : Time
+    getter quantity_bht : Int64 = 0_i64 # how many bought
+    getter quantity_sld : Int64 = 0_i64 # how many sold
 
-    @avg_price : Float64 = 0.0_f64     # average price without cost
-    @avg_price_net : Float64 = 0.0_f64 # average price including cost
-    @avg_price_bht : Float64 = 0.0_f64 # average price BOT, without cost
-    @avg_price_sld : Float64 = 0.0_f64 # average price SLD, without cost
-    @value : Float64 = 0.0_f64         # qty * price
-    @value_bht : Float64 = 0.0_f64     # qty BOT * price
-    @value_sld : Float64 = 0.0_f64     # qty SLD * price
-    @net_value : Float64 = 0.0_f64     # current value - cost
-    @net_value_bht : Float64 = 0.0_f64 # current BOT value + cost
-    @net_value_sld : Float64 = 0.0_f64 # current SLD value - cost
-    @market_price : Float64 = 0.0_f64  # last known market price
-    @market_value : Float64 = 0.0_f64  # qty * price
-    @commission : Float64 = 0.0_f64
-    @exchange_fee : Float64 = 0.0_f64
-    @cost : Float64 = 0.0_f64       # commission + fees
-    @cost_basis : Float64 = 0.0_f64 # absolute qty * avg price net
+    getter avg_price : Float64 = 0.0_f64     # average price without cost
+    getter avg_price_net : Float64 = 0.0_f64 # average price including cost
+    getter avg_price_bht : Float64 = 0.0_f64 # average price BOHT, without cost
+    getter avg_price_sld : Float64 = 0.0_f64 # average price SLD, without cost
+    getter value : Float64 = 0.0_f64         # qty * price
+    getter value_bht : Float64 = 0.0_f64     # qty BOHT * price
+    getter value_sld : Float64 = 0.0_f64     # qty SLD * price
+    getter net_value : Float64 = 0.0_f64     # current value - cost
+    getter net_value_bht : Float64 = 0.0_f64 # current BOHT value + cost
+    getter net_value_sld : Float64 = 0.0_f64 # current SLD value - cost
+    getter market_price : Float64 = 0.0_f64  # last known market price
+    getter market_value : Float64 = 0.0_f64  # qty * price
+    getter commission : Float64 = 0.0_f64
+    getter exchange_fee : Float64 = 0.0_f64
+    getter cost : Float64 = 0.0_f64       # commission + fees
+    getter cost_basis : Float64 = 0.0_f64 # absolute qty * avg price net
 
-    @real_profit_loss : Float64 = 0.0_f64
-    @unreal_profit_loss : Float64 = 0.0_f64
-    @total_profit_loss : Float64 = 0.0_f64
+    getter real_profit_loss : Float64 = 0.0_f64
+    getter unreal_profit_loss : Float64 = 0.0_f64
+    getter total_profit_loss : Float64 = 0.0_f64
 
     def initialize(fill : FillEvent)
       @symbol = fill.symbol
@@ -37,17 +39,17 @@ module Algo::Backtester
       update_helper!(fill)
     end
 
-    def update_value!(fill : FillEvent)
-      @timestamp = fill.timestamp
-      latest_price = fill.price
+    def update_value!(bar : Bar)
+      @timestamp = bar.timestamp
+      latest_price = bar.price
       update_value_helper!(latest_price)
     end
 
     private def update_helper!(fill : FillEvent)
       case fill.direction
-      when Algo::Backtester::Direction::BOT
+      when Algo::Backtester::Direction::BGHT
         update_helper_bought!(fill)
-      when Algo::Backtester::Direction::SLD
+      when Algo::Backtester::Direction::SOLD
         update_helper_sold!(fill)
       end
 
@@ -66,12 +68,12 @@ module Algo::Backtester
         @cost_basis += fill.net_value
       else
         # position is short, closing partially out
-        @cost_basis += abs(fill.quantity) / @quantity * @cost_basis
+        @cost_basis += fill.quantity.abs / @quantity * @cost_basis
         @real_profit_loss += fill.quantity * (@avg_price_net - fill.price) - fill.cost
       end
 
-      @avg_price = ((abs(@quantity) * @avg_price) + (fill.quantity * fill.price)) / (abs(@quantity) + fill.quantity)
-      @avg_price_net = (abs(@quantity) * @avg_price_net + fill.net_value) / (abs(@quantity) + fill.quantity)
+      @avg_price = ((@quantity.abs * @avg_price) + (fill.quantity * fill.price)) / (@quantity.abs + fill.quantity)
+      @avg_price_net = (@quantity.abs * @avg_price_net + fill.net_value) / (@quantity.abs + fill.quantity)
       @avg_price_bht = ((@quantity_bht * @avg_price_bht) + (fill.quantity * fill.price)) / (quantity_bht + fill.quantity)
 
       # update position quantity
@@ -85,14 +87,14 @@ module Algo::Backtester
     private def update_helper_sold!(fill : FillEvent)
       # position is long, closing partially out
       if @quantity >= 0
-        @cost_basis -= abs(fill.quantity) / @quantity * @cost_basis
-        @real_profit_loss += abs(fill.quantity) * (@fill_price - @avg_price_net) - fill.cost
+        @cost_basis -= fill.quantity.abs / @quantity * @cost_basis
+        @real_profit_loss += fill.quantity.abs * (fill.price - @avg_price_net) - fill.cost
       else # position is short, adding to position
         @cost_basis -= fill.net_value
       end
 
-      @avg_price = ((abs(@quantity) * @avg_price) + (fill.quantity * fill.price)) / (abs(@quantity) + fill.quantity)
-      @avg_price_net = (abs(@quantity) * @avg_price_net + fill.net_value) / (abs(@quantity) + fill.quantity)
+      @avg_price = ((@quantity.abs * @avg_price) + (fill.quantity * fill.price)) / (@quantity.abs + fill.quantity)
+      @avg_price_net = (@quantity.abs * @avg_price_net + fill.net_value) / (@quantity.abs + fill.quantity)
       @avg_price_sld = ((@quantity_bht * @avg_price_sld) + (fill.quantity * fill.price)) / (quantity_sld + fill.quantity)
 
       @quantity -= fill.quantity
@@ -104,8 +106,8 @@ module Algo::Backtester
 
     private def update_value_helper!(latest_price : Float64)
       @market_price = latest_price
-      @market_value = abs(@quantity) * latest_price
-      @unreal_profit_loss = @quantity * latest_price - cost_basis
+      @market_value = @quantity.abs * latest_price
+      @unreal_profit_loss = @quantity * latest_price - @cost_basis
       @total_profit_loss = @real_profit_loss + @unreal_profit_loss
     end
   end
