@@ -43,6 +43,7 @@ module Algo::Backtester
       setup
 
       while true
+        puts "Remaining.....#{@event_queue.size}"
         # STOPPING CONDITION: If we are out of events and data then we stop
         if @event_queue.empty?
           break if @data.empty?

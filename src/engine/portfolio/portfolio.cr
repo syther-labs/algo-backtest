@@ -59,21 +59,24 @@ module Algo::Backtester
     end
 
     def is_invested(symbol : String) : Position?
-      if pos = @holdings[symbol]
+      if @holdings.has_key?(symbol)
+        pos = @holdings[symbol]
         return pos if pos.quantity != 0
       end
       return nil
     end
 
     def is_long(symbol : String) : Position?
-      if pos = @holdings[symbol]
+      if @holdings.has_key?(symbol)
+        pos = @holdings[symbol]
         return pos if pos.quantity > 0
       end
       return nil
     end
 
     def is_short(symbol : String) : Position?
-      if pos = @holdings[symbol]
+      if @holdings.has_key?(symbol)
+        pos = @holdings[symbol]
         return pos if pos.quantity < 0
       end
       return nil
