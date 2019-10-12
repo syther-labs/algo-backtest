@@ -1,6 +1,5 @@
 module Algo::Backtester
   class Backtest
-    property symbols : Array(String)
     property data : DataHandler
     property strategy : AbstractStrategy
     property portfolio : AbstractPortfolio
@@ -8,19 +7,21 @@ module Algo::Backtester
     property statistics : StatisticHandler
     property event_queue : Array(AbstractEvent)
 
+    PRINT_TITLE_BORDER_WIDTH = 25 # chars
+
     def initialize(
-      @symbols,
       @data,
       @strategy,
-      @portfolio = Portfolio.new,
+      initial_cash : Float64,
       @exchange = Exchange.new(
         symbol: "MIKE",
-        commission: FixedCommission.new(0_f64),
+        commission: PercentageCommission.new(0.01_f64),
         exchange_fee: FixedExchangeFee.new(0_f64)
-      ),
-      @event_queue = [] of AbstractEvent,
-      @statistics = StatisticHandler.new
+      )
     )
+      @portfolio = Portfolio.new(initial_cash)
+      @statistics = StatisticHandler.new
+      @event_queue = [] of AbstractEvent
     end
 
     def setup
@@ -42,8 +43,9 @@ module Algo::Backtester
     def run
       setup
 
+      print_title "Starting backtest...."
+
       while true
-        puts "Remaining.....#{@event_queue.size}"
         # STOPPING CONDITION: If we are out of events and data then we stop
         if @event_queue.empty?
           break if @data.empty?
@@ -52,12 +54,16 @@ module Algo::Backtester
         end
 
         event = @event_queue.shift
+        puts "Processing: #{event.to_s}"
+
         process_event(event)
 
         @statistics.track_event(event)
       end
 
       teardown
+
+      print_title "Ending backtest...."
     end
 
     private def process_event(event : AbstractEvent)
@@ -65,12 +71,11 @@ module Algo::Backtester
       when Bar
         @portfolio.update!(event)
         @statistics.update!(event, @portfolio)
-        
+
         @exchange.on_data(event)
-        
+
         signals = strategy.on_data(event)
         @event_queue.concat(signals)
-
       when SignalEvent
         order = @portfolio.on_signal(event, @data)
         @event_queue << order
@@ -79,8 +84,13 @@ module Algo::Backtester
         @event_queue << order
       when FillEvent
         transaction = @portfolio.on_fill(event, @data)
-        # track transaction
+        @statistics.track_transaction(transaction)
       end
+    end
+
+    private def print_title(msg : String)
+      border = "-" * PRINT_TITLE_BORDER_WIDTH
+      puts "#{border}\n- #{msg}\n#{border}"
     end
   end
 end

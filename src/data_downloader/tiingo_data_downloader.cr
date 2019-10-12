@@ -12,6 +12,7 @@ module Algo::Backtester
         adj_low: {type: Float64, setter: false, key: "adjLow"},
         adj_open: {type: Float64, setter: false, key: "adjOpen"},
         adj_volume: {type: Int64, setter: false, key: "adjVolume"},
+        open: {type: Float64, setter: false},
         close: {type: Float64, setter: false},
         timestamp: {type: Time, key: "date"},
         div_cash: {type: Float64, setter: false, key: "divCash"},
@@ -50,7 +51,7 @@ module Algo::Backtester
         bars << Bar.new(timestamp: rb.timestamp, symbol: symbol, adj_close: rb.adj_close,
           adj_high: rb.adj_high, adj_low: rb.adj_low, adj_open: rb.adj_open,
           adj_volume: rb.adj_volume, close: rb.close, div_cash: rb.div_cash, high: rb.high,
-          low: rb.low, split_factor: rb.split_factor, volume: rb.volume)
+          low: rb.low, split_factor: rb.split_factor, volume: rb.volume, open: rb.open)
       end
       return bars
     end

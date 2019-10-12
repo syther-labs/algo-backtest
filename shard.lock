@@ -1,10 +1,14 @@
 version: 1.0
 shards:
-  descriptive_statistics:
-    path: ../descriptive_statistics
-    version: 0.1.0
+  habitat:
+    github: luckyframework/habitat
+    commit: 318b8386f1a1ac2b23745ffce91131348fdf97f5
 
   halite:
     github: icyleaf/halite
     version: 0.10.4
+
+  vcr:
+    github: spoved/vcr.cr
+    version: 0.2.2
 

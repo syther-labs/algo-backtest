@@ -5,7 +5,7 @@ module Algo::Backtester
     end
 
     def self.sum(collection)
-      return collection.sum()
+      return collection.sum
     end
 
     def self.mean(collection)
@@ -23,7 +23,7 @@ module Algo::Backtester
     end
 
     def self.sqrt(num)
-        Math.sqrt(num)
+      Math.sqrt(num)
     end
   end
 end

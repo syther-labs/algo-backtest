@@ -17,16 +17,9 @@
         //     "externalConsole": false,
         //     "MIMode": "lldb"
         // },
-        // {
-        //     "name": "Debug",
-        //     "type": "lldb-mi",
-        //     "request": "launch",
-        //     "target": "./bin/${workspaceFolderBasename}",
-        //     "cwd": "${workspaceRoot}",
-        //     "preLaunchTask": "Compile"
-        //   }
         {
             "name": "Debug",
+            // "type": "lldb-mi",
             "type": "gdb",
             "request": "launch",
             "target": "./bin/${workspaceFolderBasename}",

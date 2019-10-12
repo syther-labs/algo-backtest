@@ -23,7 +23,7 @@ module Algo::Backtester
         direction: signal.direction,
         type: OrderType::Market,
         status: OrderStatus::Submitted,
-        quantity: 1_i64, # to be overwritten by sizer.
+        quantity: 1_i64,       # to be overwritten by sizer.
         asset_type: "SECURITY" # is this a parameter?
       )
       unless latest_price = data_handler.latest(signal.symbol)
@@ -56,6 +56,8 @@ module Algo::Backtester
       end
 
       @transactions << fill
+
+      return fill
     end
 
     def is_invested(symbol : String) : Position?

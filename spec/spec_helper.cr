@@ -4,8 +4,8 @@ require "../src/**"
 def create_bar(args : NamedTuple? = nil)
   kDefaultArgs = {timestamp: Time.now, symbol: "AAPL", adj_close: 224.4_f64,
                   adj_high: 228.06_f64, adj_low: 224.33_f64, adj_open: 225.82_f64,
-                  adj_volume: 29282700_i64, close: 224.4_f64, div_cash: 0.0_f64, high: 228.06_f64,
-                  low: 224.33_f64, split_factor: 1.0_f64, volume: 29282700_i64}
+                  open: 225.82_f64, adj_volume: 29282700_i64, close: 224.4_f64,
+                  div_cash: 0.0_f64, high: 228.06_f64, low: 224.33_f64, split_factor: 1.0_f64, volume: 29282700_i64}
 
   if args.nil?
     Algo::Backtester::Bar.new(**kDefaultArgs)

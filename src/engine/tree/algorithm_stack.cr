@@ -11,10 +11,7 @@ module Algo::Backtester
 
     def run(strategy : AbstractStrategy)
       @stack.each do |algo|
-        unless algo.run(strategy)
-          puts "An error occured."
-          return false
-        end
+        return false if !algo.run(strategy)
       end
       return true
     end

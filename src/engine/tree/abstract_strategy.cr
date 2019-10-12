@@ -37,12 +37,14 @@ module Algo::Backtester
 
     def strategies : Array(AbstractStrategy)
       return @children
-        .reject { |c| c.is_a? AbstractStrategy }
-        .map {|strat| strat.as(AbstractStrategy)}
+        .select { |c| c.is_a? AbstractStrategy }
+        .map { |strat| strat.as(AbstractStrategy) }
     end
 
     def assets : Array(Asset)
-      return @children.select { |c| c.is_a? Asset }
+      return @children
+        .select { |c| c.is_a? Asset }
+        .map { |ass| ass.as(Asset) }
     end
 
     def on_data(event : Bar) : Array(SignalEvent)
@@ -50,6 +52,7 @@ module Algo::Backtester
 
       @algos.run(self)
 
+      pp strategies()
       # pass event down to child strategies
       strategies().each do |strat|
         child_signals = strat.on_data(event)

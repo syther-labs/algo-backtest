@@ -75,9 +75,10 @@ module Algo::Backtester
       summary = String.build do |str|
         str << "Printing backtest results...\n"
         str << "Counted #{@event_history.size} total events.\n"
-        str << "Counted #{@transaction_history.size} total transactions."
+        str << "Counted #{@transaction_history.size} total transactions.\n"
+
         @transaction_history.each_with_index do |trans, i|
-          str << "#{i + 1}. "
+          str << "\t#{i + 1}. "
           str << "Transaction: #{trans.timestamp.to_s("%Y-%m-%d")}, "
           str << "Action: #{trans.direction}, "
           str << "Price: #{trans.price}, "
@@ -85,7 +86,7 @@ module Algo::Backtester
         end
       end
 
-      return summary
+      puts summary
     end
 
     def total_equity_return : Float64
@@ -100,7 +101,7 @@ module Algo::Backtester
       equity_returns = @equity_history.map(&.equity_return)
       mean = Stats.mean(equity_returns)
       stddev = Stats.stddev(equity_returns)
-      
+
       return (mean - risk_free) / stddev
     end
 

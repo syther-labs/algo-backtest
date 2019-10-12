@@ -1,18 +1,33 @@
-# require "./data_downloader/tiingo_data_downloader.cr"
 require "./**"
+require "vcr"
+
+# @strategy.on_data() create signals
+# @portfolio.on_signal() returns an order
+# @exchange.on_order() returns a fill
+# a fill is then tracked by statistics handler
 
 # TODO: Write documentation for `Algo::Backtester`
 module Algo::Backtester
   VERSION = "0.1.0"
-  bars = TiingoDataDownloader.new.query("AAPL", 3.months.ago, Time.now)
+
+  bars = [] of Bar
+
+  # To refresh add :record
+  load_cassette("appl-bars-aug-to-oct") do
+    bars = TiingoDataDownloader.new.query("AAPL", 3.months.ago, Time.now)
+  end
+
   data = DataHandler.new
-  data.stream = bars
+  data.stream = bars.first(3)
 
-  symbols = ["AAPL"]
+  strategy = Strategy.new("buy_and_hold")
+  strategy.set_algo(
+    RunDailyAlgorithm.new,
+    SignalAlgorithm.new(direction: :buy)
+  )
+  strategy.add_child Asset.new("AAPL")
 
-  strategy = AbstractStrategy.new("buy-and-hold")
-
-  backtest = Backtest.new(symbols: symbols, data: data, strategy: strategy)
+  backtest = Backtest.new(initial_cash: 1000.0_f64, data: data, strategy: strategy)
 
   backtest.run
 
