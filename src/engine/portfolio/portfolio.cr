@@ -1,12 +1,12 @@
 module Algo::Backtester
   class Portfolio < AbstractPortfolio
-    DEFAULT_INITIAL_CASH = 100_000_f64
 
+    @initial_cash : Float64
     getter holdings : Hash(String, Position)
     getter size_handler : SizeHandler
     @transactions : Array(FillEvent)
 
-    def initialize(@initial_cash = DEFAULT_INITIAL_CASH)
+    def initialize(@initial_cash : Float64)
       @cash = @initial_cash
       @value = @initial_cash
       @holdings = Hash(String, Position).new
@@ -15,14 +15,14 @@ module Algo::Backtester
     end
 
     def on_signal(signal : SignalEvent, data_handler : DataHandler)
-      # Todo figure out how to set this dynamically
+      # TODO: Add limit orders!
       initial_order = OrderEvent.new(
         id: -1_i64,
         timestamp: signal.timestamp,
         symbol: signal.symbol,
         direction: signal.direction,
-        type: OrderType::Market,
-        status: OrderStatus::Submitted,
+        type: signal.order_type,
+        status: OrderStatus::Open,
         quantity: 1_i64,       # to be overwritten by sizer.
         asset_type: "SECURITY" # is this a parameter?
       )
@@ -47,9 +47,9 @@ module Algo::Backtester
 
       # Update cash
       case fill.direction
-      when Direction::BGHT
+      when Direction::Buy
         @cash -= fill.net_value
-      when Direction::SOLD
+      when Direction::Sell
         @cash += fill.net_value
       else
         raise Exception.new("Shouldn't have hold or exit fills")

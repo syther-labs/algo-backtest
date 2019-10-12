@@ -2,24 +2,20 @@ require "./abstract_event.cr"
 require "./direction.cr"
 
 module Algo::Backtester
+  # https://ibkr.info/article/255
   enum OrderType
     Market        = 0
-    MarketOnOpen
-    MarketOnClose
     StopMarket
     Limit
     StopLimit
   end
 
   enum OrderStatus
-    None            = 0
-    New
-    Submitted
-    PartiallyFilled
+    Open
     Filled
     Cancelled
-    CancelPending
-    Invalid
+    Rejected
+    Held
   end
 
   struct OrderEvent < AbstractEvent

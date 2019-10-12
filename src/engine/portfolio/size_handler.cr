@@ -13,11 +13,11 @@ module Algo::Backtester
       end
 
       case order.direction
-      when Direction::BGHT
+      when Direction::Buy
         order.quantity = set_default_size(bar.price)
-      when Direction::SOLD
+      when Direction::Sell
         order.quantity = set_default_size(bar.price)
-      when Direction::EXIT
+      when Direction::Exit
         unless portfolio.is_invested(order.symbol)
           raise Exception.new("no holding to exit from")
         end

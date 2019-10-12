@@ -31,13 +31,13 @@ module Algo::Backtester
     private def map_direction_string_to_enum(direction : Symbol) : Direction
       return case direction
       when :long, :buy
-        return Direction::BGHT
+        return Direction::Buy
       when :hold
-        return Direction::HOLD
+        return Direction::Hold
       when :exit
-        return Direction::EXIT
+        return Direction::Exit
       when :short, :sell
-        return Direction::SOLD
+        return Direction::Sell
       else
         raise Exception.new("Invalid direction provided")
       end

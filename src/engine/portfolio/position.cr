@@ -47,9 +47,9 @@ module Algo::Backtester
 
     private def update_helper!(fill : FillEvent)
       case fill.direction
-      when Algo::Backtester::Direction::BGHT
+      when Algo::Backtester::Direction::Buy
         update_helper_bought!(fill)
-      when Algo::Backtester::Direction::SOLD
+      when Algo::Backtester::Direction::Sell
         update_helper_sold!(fill)
       end
 

@@ -1,12 +1,12 @@
 module Algo::Backtester
   enum Direction
     # Bought
-    BGHT = 0
+    Buy = 0
     # Sell
-    SOLD
+    Sell
     # Hold
-    HOLD
+    Hold
     # Exit
-    EXIT
+    Exit
   end
 end

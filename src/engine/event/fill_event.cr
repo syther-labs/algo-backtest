@@ -1,6 +1,3 @@
-require "./abstract_event.cr"
-require "./direction.cr"
-
 module Algo::Backtester
   struct FillEvent < AbstractEvent
     property direction : Direction
@@ -20,7 +17,7 @@ module Algo::Backtester
 
     def net_value : Float64
       nv = value()
-      nv += direction == Direction::BGHT ? cost : -cost
+      nv += direction == Direction::Buy ? cost : -cost
       return nv
     end
   end
