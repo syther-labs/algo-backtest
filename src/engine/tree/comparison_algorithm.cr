@@ -12,9 +12,8 @@ module Algo::Backtester
     def run(strategy : AbstractStrategy) : Bool
       result_first = @first.run(strategy)
       result_second = @second.run(strategy)
-      if !result_first || !result_second
-        return false
-      end
+
+      return false unless result_first && result_second
 
       return @first.value > @second.value
     end
@@ -33,9 +32,8 @@ module Algo::Backtester
     def run(strategy : AbstractStrategy) : Bool
       result_first = @first.run(strategy)
       result_second = @second.run(strategy)
-      if !result_first || !result_second
-        return false
-      end
+      
+      return false unless result_first && result_second
 
       return @first.value < @second.value
     end
@@ -54,10 +52,10 @@ module Algo::Backtester
     def run(strategy : AbstractStrategy) : Bool
       result_first = @first.run(strategy)
       result_second = @second.run(strategy)
-      if !result_first || !result_second
-        return false
-      end
 
+      # If either of the results are inactive, then we don't even need to check
+      return false unless result_first && result_second
+      
       return @first.value == @second.value
     end
   end

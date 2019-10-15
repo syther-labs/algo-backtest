@@ -10,7 +10,7 @@ module Algo::Backtester
       when Direction
         @direction = direction
       else
-        raise Exception.new("This should never occur.")
+        raise UnsupportedDirectionError.new
       end
     end
 
@@ -39,7 +39,7 @@ module Algo::Backtester
       when :short, :sell
         return Direction::Sell
       else
-        raise Exception.new("Invalid direction provided")
+        raise UnsupportedDirectionError.new("Invalid direction provided")
       end
     end
   end

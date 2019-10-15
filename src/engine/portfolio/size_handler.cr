@@ -4,14 +4,14 @@ module Algo::Backtester
     @default_value : Float64
 
     def initialize(@default_size, @default_value)
+      
+      if @default_size == 0 || @default_value == 0
+        raise InvalidParameterError.new("cannot size order - default order size and value not set")
+      end
     end
 
+    # Remember that orders are passed by value so we have to return the updated order
     def size_order(order : OrderEvent, bar : Bar, portfolio : AbstractPortfolio) : OrderEvent
-      # Remember that orders are passed by value so we have to return the updated order
-      if @default_size == 0 || @default_value == 0
-        raise Exception.new("cannot size order - default order size and value not set")
-      end
-
       case order.direction
       when Direction::Buy
         order.quantity = set_default_size(bar.price)
@@ -19,7 +19,7 @@ module Algo::Backtester
         order.quantity = set_default_size(bar.price)
       when Direction::Exit
         unless portfolio.is_invested(order.symbol)
-          raise Exception.new("no holding to exit from")
+          raise HoldingDoesNotExistError.new("no holding to exit from")
         end
 
         if pos = portfolio.is_long(order.symbol)

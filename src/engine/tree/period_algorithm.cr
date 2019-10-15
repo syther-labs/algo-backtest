@@ -79,7 +79,7 @@ module Algo::Backtester
       when 10..12
         return 4
       else
-        raise Exception.new("invalid date")
+        raise InvalidParameterError.new
       end
     end
   end

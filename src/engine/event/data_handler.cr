@@ -13,7 +13,7 @@ module Algo::Backtester
 
     def next! : Bar
       if @stream.empty?
-        raise Exception.new("Next called on an empty stream")
+        raise EmptyDataHandlerError.new("Next called on an empty stream")
       end
 
       dh = @stream.shift

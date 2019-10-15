@@ -31,11 +31,7 @@ module Algo::Backtester
     def run(strategy : AbstractStrategy) : Bool
       result_first = @first.run(strategy)
       result_second = @second.run(strategy)
-      if !result_first || !result_second
-        return false
-      end
-
-      return true
+      return result_first && result_second
     end
   end
 
@@ -52,11 +48,8 @@ module Algo::Backtester
     def run(strategy : AbstractStrategy) : Bool
       result_first = @first.run(strategy)
       result_second = @second.run(strategy)
-      if !result_first && !result_second
-        return false
-      end
 
-      return true
+      return result_first || result_second
     end
   end
 

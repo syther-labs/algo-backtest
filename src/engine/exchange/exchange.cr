@@ -14,14 +14,12 @@ module Algo::Backtester
     def on_order(order : OrderEvent, data : DataHandler) : FillEvent
       # Assumes no price slippage occurs
       unless latest_price = data.latest(order.symbol)
-        raise Exception.new("Trying to place order for security with no data")
+        raise EmptyDataHandlerError.new("Trying to place order for security with no data")
       end
       # Assumes all orders are filled at desired quantity and latest price
 
       ord_commish = @commission.calculate(order.quantity, latest_price.price)
       exc_fee = @exchange_fee.fee
-
-      fill_cost = ord_commish + exc_fee
 
       return FillEvent.new(
         symbol: order.symbol,
@@ -31,7 +29,6 @@ module Algo::Backtester
         price: latest_price.price,
         commission: ord_commish,
         exchange_fee: exc_fee,
-        cost: fill_cost
       )
     end
   end

@@ -1,10 +1,10 @@
 module Algo::Backtester
   class Portfolio < AbstractPortfolio
-
     @initial_cash : Float64
     getter holdings : Hash(String, Position)
     getter size_handler : SizeHandler
     @transactions : Array(FillEvent)
+    @next_order_id : Int64
 
     def initialize(@initial_cash : Float64)
       @cash = @initial_cash
@@ -12,22 +12,24 @@ module Algo::Backtester
       @holdings = Hash(String, Position).new
       @size_handler = SizeHandler.new(default_size: 10_i64, default_value: 1000_f64)
       @transactions = [] of FillEvent
+      @next_order_id = 1_i64
     end
 
     def on_signal(signal : SignalEvent, data_handler : DataHandler)
       # TODO: Add limit orders!
       initial_order = OrderEvent.new(
-        id: -1_i64,
+        id: @next_order_id,
         timestamp: signal.timestamp,
         symbol: signal.symbol,
         direction: signal.direction,
-        type: signal.order_type,
+        type: OrderType::Market,
         status: OrderStatus::Open,
         quantity: 1_i64,       # to be overwritten by sizer.
         asset_type: "SECURITY" # is this a parameter?
       )
+      @next_order_id += 1
       unless latest_price = data_handler.latest(signal.symbol)
-        raise Exception.new("trying to add signal for symbol with no data")
+        raise EmptyDataHandlerError.new("trying to add signal for symbol with no data")
       end
 
       sized_order = @size_handler.size_order(initial_order, latest_price, self)
@@ -52,7 +54,7 @@ module Algo::Backtester
       when Direction::Sell
         @cash += fill.net_value
       else
-        raise Exception.new("Shouldn't have hold or exit fills")
+        raise InvalidParameterError.new("Shouldn't have hold or exit fills")
       end
 
       @transactions << fill
@@ -92,9 +94,10 @@ module Algo::Backtester
     end
 
     def reset!
-      @initial_cash = DEFAULT_INITIAL_CASH
       @cash = @initial_cash
       @value = @initial_cash
+      @holdings = Hash(String, Position).new
+      @transactions = [] of FillEvent
     end
 
     def value : Float64

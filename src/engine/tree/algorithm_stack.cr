@@ -11,7 +11,7 @@ module Algo::Backtester
 
     def run(strategy : AbstractStrategy) : Bool
       @stack.each do |algo|
-        return false if !algo.run(strategy)
+        return false unless algo.run(strategy)
       end
       return true
     end
