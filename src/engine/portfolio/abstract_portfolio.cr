@@ -2,12 +2,12 @@ module Algo::Backtester
   abstract class AbstractPortfolio
     property initial_cash : Float64
     property cash : Float64
-    property value : Float64
 
     # As this is an abstract class, this method will
     # never be called but without it, we run into an issue
     # where the initialize does not include all instance variables
-    def initialize(@initial_cash, @cash, @value)
+    def initialize(@initial_cash)
+      @cash = @initial_cash
     end
 
     abstract def on_signal(signal : SignalEvent, data_handler : DataHandler)

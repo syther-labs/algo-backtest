@@ -4,7 +4,7 @@ require "./direction.cr"
 module Algo::Backtester
   # https://ibkr.info/article/255
   enum OrderType
-    Market        = 0
+    Market     = 0
     StopMarket
     Limit
     StopLimit

@@ -13,5 +13,5 @@ dependencies:
     github: icyleaf/halite
   vcr:
     github: spoved/vcr.cr
-
+    
 license: MIT

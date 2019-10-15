@@ -1,6 +1,7 @@
 module Algo::Backtester
   class Portfolio < AbstractPortfolio
     @initial_cash : Float64
+    @cash : Float64
     getter holdings : Hash(String, Position)
     getter size_handler : SizeHandler
     @transactions : Array(FillEvent)
@@ -8,7 +9,6 @@ module Algo::Backtester
 
     def initialize(@initial_cash : Float64)
       @cash = @initial_cash
-      @value = @initial_cash
       @holdings = Hash(String, Position).new
       @size_handler = SizeHandler.new(default_size: 10_i64, default_value: 1000_f64)
       @transactions = [] of FillEvent
@@ -49,10 +49,8 @@ module Algo::Backtester
 
       # Update cash
       case fill.direction
-      when Direction::Buy
-        @cash -= fill.net_value
-      when Direction::Sell
-        @cash += fill.net_value
+      when Direction::Buy  then @cash -= fill.net_value
+      when Direction::Sell then @cash += fill.net_value
       else
         raise InvalidParameterError.new("Shouldn't have hold or exit fills")
       end
@@ -95,17 +93,12 @@ module Algo::Backtester
 
     def reset!
       @cash = @initial_cash
-      @value = @initial_cash
       @holdings = Hash(String, Position).new
       @transactions = [] of FillEvent
     end
 
     def value : Float64
-      holding_value : Float64 = 0
-      @holdings.values.each do |pos|
-        holding_value += pos.market_value
-      end
-
+      holding_value = @holdings.values.map(&.market_value).sum
       return @cash + holding_value
     end
   end

@@ -4,7 +4,6 @@ module Algo::Backtester
     @default_value : Float64
 
     def initialize(@default_size, @default_value)
-      
       if @default_size == 0 || @default_value == 0
         raise InvalidParameterError.new("cannot size order - default order size and value not set")
       end
