@@ -35,14 +35,19 @@ describe Algo::Backtester::DataHandler do
       dh.stream.empty?.should be_false
       dh.history.empty?.should be_true
 
-      dh.next!.should be_true
+      dh.next!.should_not be_nil
 
       dh.history.size.should eq(1)
     end
 
     it "should add the multiple events to history" do
       dh = Algo::Backtester::DataHandler.new
-      dh.stream = [create_bar, create_bar, create_bar] of Algo::Backtester::Bar
+
+      dh.stream = [
+        create_bar({close: 100.0_f64}),
+        create_bar({close: 200.0_f64}),
+      ] of Algo::Backtester::Bar
+
       dh.history = [] of Algo::Backtester::Bar
       dh.update_latest(create_bar)
       dh.update_list(create_bar)
@@ -50,15 +55,17 @@ describe Algo::Backtester::DataHandler do
       dh.stream.empty?.should be_false
       dh.history.empty?.should be_true
 
-      dh.next!.should be_true
-      dh.next!.should be_true
+      dh.next!.price.should eq(100.0_f64)
+      dh.next!.price.should eq(200.0_f64)
 
       dh.history.size.should eq(2)
     end
 
     it "should fail when no events are provided" do
       dh = Algo::Backtester::DataHandler.new
-      dh.next!.should be_false
+      expect_raises(Exception) do
+        dh.next!
+      end
       dh.history.empty?.should be_true
     end
   end
@@ -76,7 +83,7 @@ describe Algo::Backtester::DataHandler do
       dh.stream = [create_bar, create_bar, create_bar] of Algo::Backtester::Bar
 
       old_date = 3.days.ago
-      new_date = Time.now
+      new_date = Time.local
 
       old_bar = create_bar()
       old_bar.timestamp = old_date
@@ -106,7 +113,7 @@ describe Algo::Backtester::DataHandler do
       dh.stream = [create_bar, create_bar, create_bar] of Algo::Backtester::Bar
 
       old_date = 3.days.ago
-      new_date = Time.now
+      new_date = Time.local
 
       old_bar = create_bar()
       old_bar.timestamp = old_date

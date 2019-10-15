@@ -5,7 +5,7 @@ module Algo::Backtester
     def initialize(@exchange_fee)
     end
 
-    def fee
+    def fee : Float64
       return @exchange_fee
     end
   end
