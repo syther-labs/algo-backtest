@@ -1,4 +1,4 @@
-module Algo::Backtester
+module AlgoBacktester
   class Position
     # current qty of the position, positive on BOHT position, negativ on SLD position
     getter symbol : String
@@ -47,9 +47,9 @@ module Algo::Backtester
 
     private def update_helper!(fill : FillEvent)
       case fill.direction
-      when Algo::Backtester::Direction::Buy
+      when AlgoBacktester::Direction::Buy
         update_helper_bought!(fill)
-      when Algo::Backtester::Direction::Sell
+      when AlgoBacktester::Direction::Sell
         update_helper_sold!(fill)
       end
 

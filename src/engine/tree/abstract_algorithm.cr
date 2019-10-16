@@ -1,4 +1,4 @@
-module Algo::Backtester
+module AlgoBacktester::Tree
   abstract class AbstractAlgorithm
     # determines if the strategy should always run, regardless of failure
     property run_always : Bool

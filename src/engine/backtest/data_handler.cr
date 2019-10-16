@@ -1,6 +1,4 @@
-require "./bar.cr"
-
-module Algo::Backtester
+module AlgoBacktester
   class DataHandler
     property stream : Array(Bar)
     property history : Array(Bar)

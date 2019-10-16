@@ -15,9 +15,9 @@ def create_bar(args : NamedTuple? = nil)
                   div_cash: 0.0_f64, high: 228.06_f64, low: 224.33_f64, split_factor: 1.0_f64, volume: 29282700_i64}
 
   if args.nil?
-    Algo::Backtester::Bar.new(**kDefaultArgs)
+    AlgoBacktester::Bar.new(**kDefaultArgs)
   else
-    Algo::Backtester::Bar.new(**kDefaultArgs.merge(args))
+    AlgoBacktester::Bar.new(**kDefaultArgs.merge(args))
   end
 end
 
@@ -26,9 +26,9 @@ def create_order(args : NamedTuple? = nil)
     id:              1_i64,
     symbol:          "ACME",
     timestamp:       Time.local,
-    type:            Algo::Backtester::OrderType::Market,
-    direction:       Algo::Backtester::Direction::EXIT,
-    status:          Algo::Backtester::OrderStatus::None,
+    type:            AlgoBacktester::OrderType::Market,
+    direction:       AlgoBacktester::Direction::EXIT,
+    status:          AlgoBacktester::OrderStatus::None,
     asset_type:      "Gold",
     quantity:        1_i64,
     quantity_filled: 1_i64,
@@ -36,33 +36,33 @@ def create_order(args : NamedTuple? = nil)
     stop_price:      1.0,
   }
   if args.nil?
-    Algo::Backtester::OrderEvent.new(**kDefaultArgs)
+    AlgoBacktester::OrderEvent.new(**kDefaultArgs)
   else
-    Algo::Backtester::OrderEvent.new(**kDefaultArgs.merge(args))
+    AlgoBacktester::OrderEvent.new(**kDefaultArgs.merge(args))
   end
 end
 
 def create_order_sizer
-  Algo::Backtester::SizeHandler.new(default_size: 100_i64, default_value: 1000_f64)
+  AlgoBacktester::SizeHandler.new(default_size: 100_i64, default_value: 1000_f64)
 end
 
 def create_portfolio(initial_cash : Float64 = 1000_f64)
-  Algo::Backtester::Portfolio.new(initial_cash)
+  AlgoBacktester::Portfolio.new(initial_cash)
 end
 
 def create_fill(args : NamedTuple? = nil)
   kDefaultArgs = {
     timestamp:    Time.local,
     symbol:       "AAPL",
-    direction:    Algo::Backtester::Direction::Buy,
+    direction:    AlgoBacktester::Direction::Buy,
     quantity:     10_i64,
     price:        100.0_f64,
     commission:   0_f64,
     exchange_fee: 0_f64,
   }
   if args.nil?
-    Algo::Backtester::FillEvent.new(**kDefaultArgs)
+    AlgoBacktester::FillEvent.new(**kDefaultArgs)
   else
-    Algo::Backtester::FillEvent.new(**kDefaultArgs.merge(args))
+    AlgoBacktester::FillEvent.new(**kDefaultArgs.merge(args))
   end
 end

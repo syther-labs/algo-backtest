@@ -1,6 +1,4 @@
-require "./abstract_node.cr"
-
-module Algo::Backtester
+module AlgoBacktester::Tree
   class Asset < AbstractNode
     def initialize(@name : String)
       super

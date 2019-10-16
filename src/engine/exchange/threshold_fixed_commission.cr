@@ -1,4 +1,4 @@
-module Algo::Backtester
+module AlgoBacktester::StockExchange
   class ThresholdFixedCommission < AbstractCommission
     property commission : Float64
     property min_value : Float64

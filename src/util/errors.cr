@@ -1,4 +1,4 @@
-module Algo::Backtester
+module AlgoBacktester
   module Exception
     # Generic error
     class Error < ::Exception; end

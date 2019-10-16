@@ -1,4 +1,4 @@
-module Algo::Backtester
+module AlgoBacktester::Tree
   class BiggerThanAlgorithm < AbstractAlgorithm
     @first : AbstractAlgorithm
     @second : AbstractAlgorithm

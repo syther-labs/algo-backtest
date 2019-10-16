@@ -1,9 +1,7 @@
 require "halite"
 require "json"
-require "./abstract_data_downloader.cr"
-require "../engine/event/bar.cr"
 
-module Algo::Backtester
+module AlgoBacktester::DataDownloader
   class TiingoDataDownloader < AbstractDataDownloader
     private struct TiingoResponseBar
       JSON.mapping(

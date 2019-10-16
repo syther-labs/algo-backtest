@@ -1,4 +1,4 @@
-module Algo::Backtester
+module AlgoBacktester
   class SizeHandler
     @default_size : Int64
     @default_value : Float64

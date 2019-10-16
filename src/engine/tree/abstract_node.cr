@@ -1,4 +1,4 @@
-module Algo::Backtester
+module AlgoBacktester::Tree
   abstract class AbstractNode
     getter name : String
     property root : Bool
@@ -16,10 +16,6 @@ module Algo::Backtester
 
     def set_children(*children : AbstractNode)
       children.each { |c| add_child(c) }
-    end
-
-    def is_root?
-      root
     end
   end
 end

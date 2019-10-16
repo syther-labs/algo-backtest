@@ -1,4 +1,4 @@
-module Algo::Backtester
+module AlgoBacktester
   class Backtest
     property data : DataHandler
     property strategy : AbstractStrategy

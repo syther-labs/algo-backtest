@@ -1,4 +1,4 @@
-module Algo::Backtester
+module AlgoBacktester
   abstract class AbstractPortfolio
     property initial_cash : Float64
     property cash : Float64

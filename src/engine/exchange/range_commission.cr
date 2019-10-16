@@ -1,4 +1,4 @@
-module Algo::Backtester
+module AlgoBacktester::StockExchange
   class RangeCommission < AbstractCommission
     property commission_perc : Float64
     property min_commission : Float64

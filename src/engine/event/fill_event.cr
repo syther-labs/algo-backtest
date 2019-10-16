@@ -1,4 +1,4 @@
-module Algo::Backtester
+module AlgoBacktester::Event
   struct FillEvent < AbstractEvent
     property direction : Direction
     property quantity : Int64

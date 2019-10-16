@@ -1,4 +1,4 @@
-module Algo::Backtester
+module AlgoBacktester::Event
   struct SignalEvent < AbstractEvent
     property direction : Direction
 

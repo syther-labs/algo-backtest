@@ -1,4 +1,4 @@
-module Algo::Backtester
+module AlgoBacktester::StockExchange
   abstract class AbstractCommission
     abstract def calculate(quantity : Int64, price : Float64) : Float64
   end

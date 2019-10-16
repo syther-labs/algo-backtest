@@ -1,4 +1,4 @@
-module Algo::Backtester
+module AlgoBacktester
   class Portfolio < AbstractPortfolio
     @initial_cash : Float64
     @cash : Float64

@@ -1,4 +1,4 @@
-module Algo::Backtester
+module AlgoBacktester
   class StatisticHandler
     struct EquityPoint
       property timestamp : Time
@@ -99,19 +99,19 @@ module Algo::Backtester
 
     def sharpe_ratio(risk_free : Float64)
       equity_returns = @equity_history.map(&.equity_return)
-      mean = Stats.mean(equity_returns)
-      stddev = Stats.stddev(equity_returns)
+      mean = equity_returns.mean
+      stddev = equity_returns.stddev
 
       return (mean - risk_free) / stddev
     end
 
     def sortino_ratio(risk_free : Float64)
       equity_returns = @equity_history.map(&.equity_return)
-      mean = Stats.mean(equity_returns)
+      mean = equity_returns.mean
 
       # Sortino uses the std of only the negative returns
       neg_returns = equity_returns.reject { |r| r > 0 }
-      neg_stddev = Stats.stddev(neg_returns)
+      neg_stddev = neg_returns.stddev
 
       return (mean - risk_free) / neg_stddev
     end

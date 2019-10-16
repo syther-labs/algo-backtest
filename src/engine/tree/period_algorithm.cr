@@ -1,4 +1,4 @@
-module Algo::Backtester
+module AlgoBacktester::Tree
   class RunOnceAlgorithm < AbstractAlgorithm
     @has_run : Bool
 

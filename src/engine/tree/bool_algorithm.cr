@@ -1,4 +1,4 @@
-module Algo::Backtester
+module AlgoBacktester::Tree
   class BoolAlgorithm < AbstractAlgorithm
     @boolean : Bool
 

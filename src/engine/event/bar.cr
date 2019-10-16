@@ -2,7 +2,7 @@ require "json"
 
 require "./abstract_event.cr"
 
-module Algo::Backtester
+module AlgoBacktester::Event
   struct Bar < AbstractEvent
     getter adj_close : Float64
     getter adj_high : Float64

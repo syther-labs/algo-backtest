@@ -1,4 +1,4 @@
-module Algo::Backtester
+module AlgoBacktester::StockExchange
   class Exchange < AbstractExchange
     property symbol : String
     property commission : AbstractCommission

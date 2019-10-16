@@ -1,4 +1,4 @@
-module Algo::Backtester
+module AlgoBacktester::Event
   enum Direction
     # Bought
     Buy = 0

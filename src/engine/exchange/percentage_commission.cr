@@ -1,4 +1,4 @@
-module Algo::Backtester
+module AlgoBacktester::StockExchange
   class PercentageCommission < AbstractCommission
     property commission_perc : Float64
 

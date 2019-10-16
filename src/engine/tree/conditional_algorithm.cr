@@ -1,4 +1,4 @@
-module Algo::Backtester
+module AlgoBacktester::Tree
   class IfAlgorithm < AbstractAlgorithm
     @condition : AbstractAlgorithm
     @action : AbstractAlgorithm

@@ -1,4 +1,4 @@
-module Algo::Backtester
+module AlgoBacktester::StockExchange
   class FixedCommission < AbstractCommission
     property commission : Float64
 

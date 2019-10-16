@@ -1,4 +1,4 @@
-module Algo::Backtester
+module AlgoBacktester::StockExchange
   class FixedExchangeFee < AbstractExchangeFee
     property exchange_fee : Float64
 

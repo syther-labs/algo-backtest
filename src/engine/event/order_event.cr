@@ -1,7 +1,7 @@
 require "./abstract_event.cr"
 require "./direction.cr"
 
-module Algo::Backtester
+module AlgoBacktester::Event
   # https://ibkr.info/article/255
   enum OrderType
     Market     = 0
