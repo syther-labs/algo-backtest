@@ -15,5 +15,7 @@ dependencies:
     github: icyleaf/halite
   vcr:
     github: spoved/vcr.cr
+  crystal_talib:
+    github: fridgerator/crystal_talib
     
 license: MIT

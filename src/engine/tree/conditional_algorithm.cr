@@ -9,12 +9,16 @@ module AlgoBacktester::Tree
     end
 
     # Runs the algorithm, returning the bool value of the algorithm
-    def run(strategy : AbstractStrategy) : Bool
+    def run(strategy : AbstractStrategy) : {Bool, AlgorithmError?}
       result_condition = @condition.run(strategy)
+
       if result_condition
         result_action = @action.run(strategy)
+        return {true, nil} if result_action
+        return {false, AlgorithmError.new(("if condition met but result was false"))}
       end
-      return true
+
+      return {true, nil} # If condition was not met
     end
   end
 
@@ -28,10 +32,12 @@ module AlgoBacktester::Tree
     end
 
     # Runs the algorithm, returning the bool value of the algorithm
-    def run(strategy : AbstractStrategy) : Bool
+    def run(strategy : AbstractStrategy) : {Bool, AlgorithmError?}
       result_first = @first.run(strategy)
       result_second = @second.run(strategy)
-      return result_first && result_second
+      is_and = result_first && result_second
+      return {true, nil} if is_and
+      return {false, AlgorithmError.new(("AND condition not held"))}
     end
   end
 
@@ -45,11 +51,13 @@ module AlgoBacktester::Tree
     end
 
     # Runs the algorithm, returning the bool value of the algorithm
-    def run(strategy : AbstractStrategy) : Bool
+    def run(strategy : AbstractStrategy) : {Bool, AlgorithmError?}
       result_first = @first.run(strategy)
       result_second = @second.run(strategy)
 
-      return result_first || result_second
+      is_or = result_first && result_second
+      return {true, nil} if is_or
+      return {false, AlgorithmError.new(("OR condition not held"))}
     end
   end
 
@@ -63,14 +71,12 @@ module AlgoBacktester::Tree
     end
 
     # Runs the algorithm, returning the bool value of the algorithm
-    def run(strategy : AbstractStrategy) : Bool
+    def run(strategy : AbstractStrategy) : {Bool, AlgorithmError?}
       result_first = @first.run(strategy)
       result_second = @second.run(strategy)
-      if (!result_first && !result_second) || (result_first && result_second)
-        return false
-      end
-
-      return true
+      is_xor = (!result_first && !result_second) || (result_first && result_second)
+      return {true, nil} if is_xor
+      return {false, AlgorithmError.new(("XOR condition not held"))}
     end
   end
 end

@@ -8,8 +8,8 @@ module AlgoBacktester::Tree
     end
 
     # Runs the algorithm, returning the bool value of the algorithm
-    def run(strategy : AbstractStrategy) : Bool
-      return @boolean
+    def run(strategy : AbstractStrategy) : {Bool, AlgorithmError?}
+      return {@boolean, AlgorithmError.new("Boolean parameter to BoolAlgo was false") }
     end
   end
 end

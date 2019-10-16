@@ -9,13 +9,15 @@ module AlgoBacktester::Tree
     end
 
     # Runs the algorithm, returning the bool value of the algorithm
-    def run(strategy : AbstractStrategy) : Bool
+    def run(strategy : AbstractStrategy) : {Bool, AlgorithmError?}
       result_first = @first.run(strategy)
       result_second = @second.run(strategy)
 
-      return false unless result_first && result_second
+      return {false, AlgorithmError.new("Algos passed in to > had non-true values") } unless result_first && result_second
 
-      return @first.value > @second.value
+      is_bigger = @first.value > @second.value
+      return {true, nil} if is_bigger
+      return {false, AlgorithmError.new("#{result_first} was not > than #{result_second}")}
     end
   end
 
@@ -29,13 +31,16 @@ module AlgoBacktester::Tree
     end
 
     # Runs the algorithm, returning the bool value of the algorithm
-    def run(strategy : AbstractStrategy) : Bool
+    def run(strategy : AbstractStrategy) : {Bool, AlgorithmError?}
       result_first = @first.run(strategy)
       result_second = @second.run(strategy)
 
-      return false unless result_first && result_second
+      return {false, AlgorithmError.new("Algos passed in to < had non-true values") } unless result_first && result_second
 
-      return @first.value < @second.value
+      is_smaller = @first.value < @second.value
+      return {true, nil} if is_smaller
+
+      return {false, AlgorithmError.new("#{result_first} was not < than #{result_second}")}
     end
   end
 
@@ -49,14 +54,15 @@ module AlgoBacktester::Tree
     end
 
     # Runs the algorithm, returning the bool value of the algorithm
-    def run(strategy : AbstractStrategy) : Bool
+    def run(strategy : AbstractStrategy) : {Bool, AlgorithmError?}
       result_first = @first.run(strategy)
       result_second = @second.run(strategy)
 
-      # If either of the results are inactive, then we don't even need to check
-      return false unless result_first && result_second
+      return {false, AlgorithmError.new("Algos passed in to == had non-true values") } unless result_first && result_second
 
-      return @first.value == @second.value
+      is_equal = @first.value == @second.value
+      return {true, nil} if is_equal
+      return {false, AlgorithmError.new("#{result_first} was not == #{result_second}")}
     end
   end
 end

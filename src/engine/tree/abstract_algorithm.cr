@@ -7,6 +7,6 @@ module AlgoBacktester::Tree
     def initialize(@run_always, @value)
     end
 
-    abstract def run(strategy : AbstractStrategy) : Bool
+    abstract def run(strategy : AbstractStrategy) : {Bool, AlgorithmError?}
   end
 end

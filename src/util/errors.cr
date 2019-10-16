@@ -14,6 +14,9 @@ module AlgoBacktester
 
     # Operation called on holding that does not exist
     class HoldingDoesNotExistError < Error; end
+
+    # An error ocurred during the run of the algorithms
+    class AlgorithmError < Error; end
   end
 
   {% for cls in Exception.constants %}

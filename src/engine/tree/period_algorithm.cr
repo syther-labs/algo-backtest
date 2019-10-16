@@ -9,11 +9,11 @@ module AlgoBacktester::Tree
     end
 
     # Runs the algorithm, returning the bool value of the algorithm
-    def run(strategy : AbstractStrategy) : Bool
-      return false if @has_run
+    def run(strategy : AbstractStrategy) : {Bool, AlgorithmError?}
+      return {false, AlgorithmError.new("Run once failed as it has already been run")} if @has_run
 
       @has_run = true
-      return true
+      return {true, nil}
     end
   end
 
@@ -22,24 +22,27 @@ module AlgoBacktester::Tree
       super(@run_always, @value)
     end
 
-    def run(strategy : AbstractStrategy) : Bool
+    def run(strategy : AbstractStrategy) : {Bool, AlgorithmError?}
       event = strategy.event
       data = strategy.data
 
       # If we somehow encounter a nil event or nil data (i.e. run without specifying),
       # fail gracefully.
-      return false if event.nil? || data.nil?
+      return {false, AlgorithmError.new("Can't run period algorithm with nil data or nil event")} if event.nil? || data.nil?
 
       history = data.history
 
       # If this is the first entry, allow the strategy to run.
-      return true if history.size <= 1
+      return {true, nil} if history.size <= 1
 
       now_timestamp = event.timestamp
 
       event_timestamp = history.first.timestamp
 
-      return !dates_are_same?(now_timestamp, event_timestamp)
+      # So now, we flip this value because we're interested not if the dates are the same, but if we are in a new period.
+      same_dates = dates_are_same?(now_timestamp, event_timestamp)
+      return {true, nil} if !same_dates
+      return {false, AlgorithmError.new("Dates are in same period")}
     end
 
     abstract def dates_are_same?(now : Time, event : Time)

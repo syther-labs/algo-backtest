@@ -1,5 +1,9 @@
 version: 1.0
 shards:
+  crystal_talib:
+    github: fridgerator/crystal_talib
+    version: 0.1.0
+
   exception_page:
     github: crystal-loot/exception_page
     version: 0.1.2
