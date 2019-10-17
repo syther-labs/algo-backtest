@@ -4,7 +4,7 @@ module AlgoBacktester::Tree
     @second : AbstractAlgorithm
 
     # Returns a simple true/false algo
-    def initialize(@first, @second, @run_always = false, @value = 0_i64)
+    def initialize(@first, @second, @run_always = false, @value = 0_f64)
       super(@run_always, @value)
     end
 
@@ -13,7 +13,7 @@ module AlgoBacktester::Tree
       result_first = @first.run(strategy)
       result_second = @second.run(strategy)
 
-      return {false, AlgorithmError.new("Algos passed in to > had non-true values") } unless result_first && result_second
+      return {false, AlgorithmError.new("Algos passed in to > had non-true values")} unless result_first && result_second
 
       is_bigger = @first.value > @second.value
       return {true, nil} if is_bigger
@@ -26,7 +26,7 @@ module AlgoBacktester::Tree
     @second : AbstractAlgorithm
 
     # Returns a simple true/false algo
-    def initialize(@first, @second, @run_always = false, @value = 0_i64)
+    def initialize(@first, @second, @run_always = false, @value = 0_f64)
       super(@run_always, @value)
     end
 
@@ -35,7 +35,7 @@ module AlgoBacktester::Tree
       result_first = @first.run(strategy)
       result_second = @second.run(strategy)
 
-      return {false, AlgorithmError.new("Algos passed in to < had non-true values") } unless result_first && result_second
+      return {false, AlgorithmError.new("Algos passed in to < had non-true values")} unless result_first && result_second
 
       is_smaller = @first.value < @second.value
       return {true, nil} if is_smaller
@@ -49,7 +49,7 @@ module AlgoBacktester::Tree
     @second : AbstractAlgorithm
 
     # Returns a simple true/false algo
-    def initialize(@first, @second, @run_always = false, @value = 0_i64)
+    def initialize(@first, @second, @run_always = false, @value = 0_f64)
       super(@run_always, @value)
     end
 
@@ -58,7 +58,7 @@ module AlgoBacktester::Tree
       result_first = @first.run(strategy)
       result_second = @second.run(strategy)
 
-      return {false, AlgorithmError.new("Algos passed in to == had non-true values") } unless result_first && result_second
+      return {false, AlgorithmError.new("Algos passed in to == had non-true values")} unless result_first && result_second
 
       is_equal = @first.value == @second.value
       return {true, nil} if is_equal

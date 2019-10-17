@@ -2,7 +2,7 @@ module AlgoBacktester::Tree
   class SignalAlgorithm < AbstractAlgorithm
     @direction : Direction
 
-    def initialize(direction : Symbol | Direction, @run_always = false, @value = 0_i64)
+    def initialize(direction : Symbol | Direction, @run_always = false, @value = 0_f64)
       super(@run_always, @value)
       case direction
       when Symbol

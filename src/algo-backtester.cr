@@ -12,22 +12,21 @@ module AlgoBacktester
   include AlgoBacktester::Event
   include AlgoBacktester::Tree
   include AlgoBacktester::StockExchange
-  
+
   VERSION = "0.1.0"
 
   bars = [] of Bar
-
   # To refresh add :record
   load_cassette("appl-bars-aug-to-oct") do
     bars = TiingoDataDownloader.new.query("AAPL", 3.months.ago, Time.now)
   end
 
   data = DataHandler.new
-  data.stream = bars.first(3)
+  data.stream = bars
 
   strategy = Strategy.new("buy_and_hold")
   strategy.set_algo(
-    RunDailyAlgorithm.new,
+    RunMonthlyAlgorithm.new,
     SignalAlgorithm.new(direction: :buy)
   )
   strategy.add_child Asset.new("AAPL")
@@ -37,9 +36,9 @@ module AlgoBacktester
   backtest.run
 
   backtest.statistics.print_summary
+
+  # result, error =  SMA.new(period: 3).run(strategy)
+  # puts [result, error]
 end
 
-puts [1,2,3,4].stddev
-
-## include AlgoBacktester::Api
-## Kemal.run
+puts [1, 2, 3, 4].stddev

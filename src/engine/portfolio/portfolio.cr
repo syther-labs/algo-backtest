@@ -56,8 +56,6 @@ module AlgoBacktester
       end
 
       @transactions << fill
-
-      return fill
     end
 
     def is_invested(symbol : String) : Position?

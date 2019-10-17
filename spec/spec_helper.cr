@@ -1,4 +1,7 @@
 require "spec"
+
+ENV["IS_SPEC"] = "true"
+
 # Require manually to exclude the main file.
 require "../src/data_downloader/**"
 require "../src/engine/backtest/**"
@@ -8,6 +11,11 @@ require "../src/engine/tree/**"
 require "../src/engine/portfolio/**"
 require "../src/util/**"
 
+include AlgoBacktester::DataDownloader
+include AlgoBacktester::Event
+include AlgoBacktester::Tree
+include AlgoBacktester::StockExchange
+
 def create_bar(args : NamedTuple? = nil)
   kDefaultArgs = {timestamp: Time.local, symbol: "AAPL", adj_close: 224.4_f64,
                   adj_high: 228.06_f64, adj_low: 224.33_f64, adj_open: 225.82_f64,
@@ -15,9 +23,9 @@ def create_bar(args : NamedTuple? = nil)
                   div_cash: 0.0_f64, high: 228.06_f64, low: 224.33_f64, split_factor: 1.0_f64, volume: 29282700_i64}
 
   if args.nil?
-    AlgoBacktester::Bar.new(**kDefaultArgs)
+    AlgoBacktester::Event::Bar.new(**kDefaultArgs)
   else
-    AlgoBacktester::Bar.new(**kDefaultArgs.merge(args))
+    AlgoBacktester::Event::Bar.new(**kDefaultArgs.merge(args))
   end
 end
 
@@ -26,9 +34,9 @@ def create_order(args : NamedTuple? = nil)
     id:              1_i64,
     symbol:          "ACME",
     timestamp:       Time.local,
-    type:            AlgoBacktester::OrderType::Market,
-    direction:       AlgoBacktester::Direction::EXIT,
-    status:          AlgoBacktester::OrderStatus::None,
+    type:            AlgoBacktester::Event::OrderType::Market,
+    direction:       AlgoBacktester::Event::Direction::EXIT,
+    status:          AlgoBacktester::Event::OrderStatus::None,
     asset_type:      "Gold",
     quantity:        1_i64,
     quantity_filled: 1_i64,
@@ -36,9 +44,9 @@ def create_order(args : NamedTuple? = nil)
     stop_price:      1.0,
   }
   if args.nil?
-    AlgoBacktester::OrderEvent.new(**kDefaultArgs)
+    AlgoBacktester::Event::OrderEvent.new(**kDefaultArgs)
   else
-    AlgoBacktester::OrderEvent.new(**kDefaultArgs.merge(args))
+    AlgoBacktester::Event::OrderEvent.new(**kDefaultArgs.merge(args))
   end
 end
 
@@ -54,15 +62,15 @@ def create_fill(args : NamedTuple? = nil)
   kDefaultArgs = {
     timestamp:    Time.local,
     symbol:       "AAPL",
-    direction:    AlgoBacktester::Direction::Buy,
+    direction:    AlgoBacktester::Event::Direction::Buy,
     quantity:     10_i64,
     price:        100.0_f64,
     commission:   0_f64,
     exchange_fee: 0_f64,
   }
   if args.nil?
-    AlgoBacktester::FillEvent.new(**kDefaultArgs)
+    AlgoBacktester::Event::FillEvent.new(**kDefaultArgs)
   else
-    AlgoBacktester::FillEvent.new(**kDefaultArgs.merge(args))
+    AlgoBacktester::Event::FillEvent.new(**kDefaultArgs.merge(args))
   end
 end

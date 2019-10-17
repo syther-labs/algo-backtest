@@ -3,7 +3,7 @@ module AlgoBacktester::Tree
     @has_run : Bool
 
     # Returns a simple true/false algo
-    def initialize(@run_always = false, @value = 0_i64)
+    def initialize(@run_always = false, @value = 0_f64)
       super(@run_always, @value)
       @has_run = false
     end
@@ -18,7 +18,7 @@ module AlgoBacktester::Tree
   end
 
   abstract class RunPeriodAlgorithm < AbstractAlgorithm
-    def initialize(@run_always = false, @value = 0_i64)
+    def initialize(@run_always = false, @value = 0_f64)
       super(@run_always, @value)
     end
 

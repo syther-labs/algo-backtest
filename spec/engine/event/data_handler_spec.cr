@@ -4,8 +4,8 @@ describe AlgoBacktester::DataHandler do
   describe "#reset" do
     it "should reset with empty data stream" do
       dh = AlgoBacktester::DataHandler.new
-      dh.stream = [create_bar] of AlgoBacktester::Bar
-      dh.history = [create_bar] of AlgoBacktester::Bar
+      dh.stream = [create_bar] of AlgoBacktester::Event::Bar
+      dh.history = [create_bar] of AlgoBacktester::Event::Bar
       dh.update_latest(create_bar)
       dh.reset!
       dh.stream.empty?.should be_false
@@ -27,8 +27,8 @@ describe AlgoBacktester::DataHandler do
   describe "#next" do
     it "should add a single event to history" do
       dh = AlgoBacktester::DataHandler.new
-      dh.stream = [create_bar, create_bar, create_bar] of AlgoBacktester::Bar
-      dh.history = [] of AlgoBacktester::Bar
+      dh.stream = [create_bar, create_bar, create_bar] of AlgoBacktester::Event::Bar
+      dh.history = [] of AlgoBacktester::Event::Bar
       dh.update_latest(create_bar)
       dh.update_list(create_bar)
 
@@ -46,9 +46,9 @@ describe AlgoBacktester::DataHandler do
       dh.stream = [
         create_bar({close: 100.0_f64}),
         create_bar({close: 200.0_f64}),
-      ] of AlgoBacktester::Bar
+      ] of AlgoBacktester::Event::Bar
 
-      dh.history = [] of AlgoBacktester::Bar
+      dh.history = [] of AlgoBacktester::Event::Bar
       dh.update_latest(create_bar)
       dh.update_list(create_bar)
 
@@ -80,7 +80,7 @@ describe AlgoBacktester::DataHandler do
 
     it "should update filled latest" do
       dh = AlgoBacktester::DataHandler.new
-      dh.stream = [create_bar, create_bar, create_bar] of AlgoBacktester::Bar
+      dh.stream = [create_bar, create_bar, create_bar] of AlgoBacktester::Event::Bar
 
       old_date = 3.days.ago
       new_date = Time.local
@@ -110,7 +110,7 @@ describe AlgoBacktester::DataHandler do
 
     it "should update filled list" do
       dh = AlgoBacktester::DataHandler.new
-      dh.stream = [create_bar, create_bar, create_bar] of AlgoBacktester::Bar
+      dh.stream = [create_bar, create_bar, create_bar] of AlgoBacktester::Event::Bar
 
       old_date = 3.days.ago
       new_date = Time.local

@@ -2,7 +2,7 @@ module AlgoBacktester::Tree
   abstract class AbstractAlgorithm
     # determines if the strategy should always run, regardless of failure
     property run_always : Bool
-    getter value : Int64
+    getter value : Float64
 
     def initialize(@run_always, @value)
     end

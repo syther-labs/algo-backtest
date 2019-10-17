@@ -1,7 +1,7 @@
 require "../../spec_helper"
 
 # We create this class to test the abstract node properties
-class MockStrategyNode < AlgoBacktester::AbstractStrategy; end
+class MockStrategyNode < AlgoBacktester::Tree::AbstractStrategy; end
 
-describe AlgoBacktester::AbstractStrategy do
+describe AlgoBacktester::Tree::AbstractStrategy do
 end

@@ -9,8 +9,6 @@ targets:
     main: src/algo-backtester.cr
 
 dependencies:
-  kemal:
-    github: kemalcr/kemal
   halite:
     github: icyleaf/halite
   vcr:

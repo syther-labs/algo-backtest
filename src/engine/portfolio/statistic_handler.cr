@@ -72,25 +72,37 @@ module AlgoBacktester
     end
 
     def print_summary
-      summary = String.build do |str|
-        str << "Printing backtest results...\n"
-        str << "Counted #{@event_history.size} total events.\n"
-        str << "Counted #{@transaction_history.size} total transactions.\n"
+      bar_events = @event_history.select { |e| e.is_a?(Bar) }
+      kSummaryStrTemplate = "%-30s%5s\n"
+      kSummaryFltTemplate = "%-30s%5.2f\n"
+      start_date, end_date = bar_events.first.timestamp, bar_events.last.timestamp
 
-        @transaction_history.each_with_index do |trans, i|
-          str << "\t#{i + 1}. "
-          str << "Transaction: #{trans.timestamp.to_s("%Y-%m-%d")}, "
-          str << "Action: #{trans.direction}, "
-          str << "Price: #{trans.price}, "
-          str << "Qty: #{trans.quantity}\n"
-        end
+      summary = String.build do |str|
+        str << "BACKTEST SUMMARY\n#{"-" * 50}\n\n"
+        str << sprintf(kSummaryStrTemplate, "Start Date", start_date.to_s("%Y-%m-%d"))
+        str << sprintf(kSummaryStrTemplate, "End Date", end_date.to_s("%Y-%m-%d"))
+        str << sprintf(kSummaryStrTemplate, "# of events", "#{@event_history.size} events")
+        str << sprintf(kSummaryStrTemplate, "# of transactions", "#{@transaction_history.size} events")
+        puts # -linebreak
+
+        str << sprintf(kSummaryFltTemplate, "Total equity return", total_equity_return())
+        str << sprintf(kSummaryFltTemplate, "Sharpe ratio", sharpe_ratio(0.0))
+        str << sprintf(kSummaryFltTemplate, "Sortino ratio", sortino_ratio(0.0))
+
+        # @transaction_history.each_with_index do |trans, i|
+        #   str << "\t#{i + 1}. "
+        #   str << "Transaction: #{trans.timestamp.to_s("%Y-%m-%d")}, "
+        #   str << "Action: #{trans.direction}, "
+        #   str << "Price: #{trans.price}, "
+        #   str << "Qty: #{trans.quantity}\n"
+        # end
       end
 
       puts summary
     end
 
     def total_equity_return : Float64
-      return 0 if @equity_history.empty?
+      return 0.0_f64 if @equity_history.empty?
       first_eq_pt = @equity_history.first.equity
       last_eq_pt = @equity_history.last.equity
 

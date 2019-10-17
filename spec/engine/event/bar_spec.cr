@@ -1,4 +1,4 @@
 require "../../spec_helper"
 
-describe AlgoBacktester::Bar do
+describe AlgoBacktester::Event::Bar do
 end

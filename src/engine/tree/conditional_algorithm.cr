@@ -4,7 +4,7 @@ module AlgoBacktester::Tree
     @action : AbstractAlgorithm
 
     # Returns a simple true/false algo
-    def initialize(@condition, @action, @run_always = false, @value = 0_i64)
+    def initialize(@condition, @action, @run_always = false, @value = 0_f64)
       super(@run_always, @value)
     end
 
@@ -27,7 +27,7 @@ module AlgoBacktester::Tree
     @second : AbstractAlgorithm
 
     # Returns a simple true/false algo
-    def initialize(@first, @second, @run_always = false, @value = 0_i64)
+    def initialize(@first, @second, @run_always = false, @value = 0_f64)
       super(@run_always, @value)
     end
 
@@ -46,7 +46,7 @@ module AlgoBacktester::Tree
     @second : AbstractAlgorithm
 
     # Returns a simple true/false algo
-    def initialize(@first, @second, @run_always = false, @value = 0_i64)
+    def initialize(@first, @second, @run_always = false, @value = 0_f64)
       super(@run_always, @value)
     end
 
@@ -66,7 +66,7 @@ module AlgoBacktester::Tree
     @second : AbstractAlgorithm
 
     # Returns a simple true/false algo
-    def initialize(@first, @second, @run_always = false, @value = 0_i64)
+    def initialize(@first, @second, @run_always = false, @value = 0_f64)
       super(@run_always, @value)
     end
 

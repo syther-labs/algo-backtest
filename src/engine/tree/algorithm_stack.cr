@@ -4,7 +4,7 @@ module AlgoBacktester::Tree
 
     def initialize(
       @run_always = false,
-      @value = 0_i64,
+      @value = 0_f64,
       @stack = [] of AbstractAlgorithm
     )
     end
@@ -12,7 +12,7 @@ module AlgoBacktester::Tree
     def run(strategy : AbstractStrategy) : {Bool, AlgorithmError?}
       @stack.each do |algo|
         algo_was_successful, error = algo.run(strategy)
-        puts error unless error.nil?
+        puts [algo_was_successful, error]
         return {false, error} unless algo_was_successful
       end
       return {true, nil}

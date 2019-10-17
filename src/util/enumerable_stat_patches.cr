@@ -9,9 +9,9 @@ module Enumerable
   end
 
   def variance
-      avg = self.mean
-      mean_squares = self.map { |el| (el - avg) ** 2 }
-      return mean_squares.reduce(&.+) / self.size
+    avg = self.mean
+    mean_squares = self.map { |el| (el - avg) ** 2 }
+    return mean_squares.reduce(&.+) / self.size
   end
 
   def stddev
