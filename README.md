@@ -2,8 +2,6 @@
 
 # Tree-Based Algorithmic Backtester
 
-![Eddie Murphy in Trading Places](http://giphygifs.s3.amazonaws.com/media/5xtDarqlsEW6F7F14Fq/giphy.gif)
-
 A modular, tree-based algorithmic backtester. The backtester is event-driven, has a historical stock price downloader via Tiingo's API and integrates with TA-Lib to integrate technical analysis into strategies. 
 
 ## Installation
@@ -60,7 +58,7 @@ require 'algo-backtester'
     + Advantage of This Implementation:
         + Multiple logic flaws were identified in Go implementation that were resolved in this implementation
         + Go implementation seems to be a basic proof-of-concept.
-        + All technical analysis is computed in C with the very popular TA-Lib library; doesn't rely on a Python package to compute technical analysis
+        + All technical analysis is computed in C with the very popular TA-Lib library; Go implementation reimplements SMA in Go as a proof of concept.
         + While Go is definitely the more popular language, it becomes a little awkward to create algorithms.
     + Advantage of Go Implementation:
         + Better tested
@@ -69,10 +67,10 @@ require 'algo-backtester'
 
 ## TODO
 
-+ [] Add more specs (currently specs exist for non-algorithm classes/structs; need to extend to Algorithms)
-+ [] Add better documentation
-+ [] Add algorithms for more TA-Lib functions (currently just shows SMA as a prototype)
-+ [] Compute + print more statistics (currently only shows Sharpe, Sortino and Cumulative Return)
+- [] Add more specs (currently specs exist for non-algorithm classes/structs; need to extend to Algorithms)
+- [] Add better documentation
+- [] Add algorithms for more TA-Lib functions (currently just shows SMA as a prototype)
+- [] Compute + print more statistics (currently only shows Sharpe, Sortino and Cumulative Return)
 
 ## Contributing
 
