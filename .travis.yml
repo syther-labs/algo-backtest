@@ -1,3 +1,15 @@
 language: crystal
+script:
   - crystal spec
   - crystal tool format --check
+  - crystal docs
+
+deploy:
+  provider: pages
+  local_dir: docs
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN  # Set in the settings page of repository, as a secure variable
+  keep_history: true
+  verbose: true
+  on:
+    branch: master
