@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="generator" content="Crystal Docs 0.30.1">
+
+
+<link href="../../css/style.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="../../js/doc.js"></script>
+<script type="text/javascript">
+  CrystalDoc.base_path = "../../";
+</script>
+
+  <meta id="repository-name" content="github.com/mikeroher/algo-backtest">
+  <title>AlgoBacktester::Tree::RunPeriodAlgorithm - github.com/mikeroher/algo-backtest</title>
+</head>
+<body>
+
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="repository-links">
+      <a href="../../index.html">README</a>
+    </div>
+  </div>
+
+  <div class="search-results" class="hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="github.com/mikeroher/algo-backtest/AlgoBacktester" data-name="algobacktester">
+      <a href="../../AlgoBacktester.html">AlgoBacktester</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/AbstractPortfolio" data-name="algobacktester::abstractportfolio">
+      <a href="../../AlgoBacktester/AbstractPortfolio.html">AbstractPortfolio</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Backtest" data-name="algobacktester::backtest">
+      <a href="../../AlgoBacktester/Backtest.html">Backtest</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/DataDownloader" data-name="algobacktester::datadownloader">
+      <a href="../../AlgoBacktester/DataDownloader.html">DataDownloader</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/DataDownloader/AbstractDataDownloader" data-name="algobacktester::datadownloader::abstractdatadownloader">
+      <a href="../../AlgoBacktester/DataDownloader/AbstractDataDownloader.html">AbstractDataDownloader</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/DataDownloader/TiingoDataDownloader" data-name="algobacktester::datadownloader::tiingodatadownloader">
+      <a href="../../AlgoBacktester/DataDownloader/TiingoDataDownloader.html">TiingoDataDownloader</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/DataHandler" data-name="algobacktester::datahandler">
+      <a href="../../AlgoBacktester/DataHandler.html">DataHandler</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Event" data-name="algobacktester::event">
+      <a href="../../AlgoBacktester/Event.html">Event</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Event/AbstractEvent" data-name="algobacktester::event::abstractevent">
+      <a href="../../AlgoBacktester/Event/AbstractEvent.html">AbstractEvent</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Event/Bar" data-name="algobacktester::event::bar">
+      <a href="../../AlgoBacktester/Event/Bar.html">Bar</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Event/Direction" data-name="algobacktester::event::direction">
+      <a href="../../AlgoBacktester/Event/Direction.html">Direction</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Event/FillEvent" data-name="algobacktester::event::fillevent">
+      <a href="../../AlgoBacktester/Event/FillEvent.html">FillEvent</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Event/OrderEvent" data-name="algobacktester::event::orderevent">
+      <a href="../../AlgoBacktester/Event/OrderEvent.html">OrderEvent</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Event/OrderStatus" data-name="algobacktester::event::orderstatus">
+      <a href="../../AlgoBacktester/Event/OrderStatus.html">OrderStatus</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Event/OrderType" data-name="algobacktester::event::ordertype">
+      <a href="../../AlgoBacktester/Event/OrderType.html">OrderType</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Event/SignalEvent" data-name="algobacktester::event::signalevent">
+      <a href="../../AlgoBacktester/Event/SignalEvent.html">SignalEvent</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Exception" data-name="algobacktester::exception">
+      <a href="../../AlgoBacktester/Exception.html">Exception</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Exception/AlgorithmError" data-name="algobacktester::exception::algorithmerror">
+      <a href="../../AlgoBacktester/Exception/AlgorithmError.html">AlgorithmError</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Exception/EmptyDataHandlerError" data-name="algobacktester::exception::emptydatahandlererror">
+      <a href="../../AlgoBacktester/Exception/EmptyDataHandlerError.html">EmptyDataHandlerError</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Exception/Error" data-name="algobacktester::exception::error">
+      <a href="../../AlgoBacktester/Exception/Error.html">Error</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Exception/HoldingDoesNotExistError" data-name="algobacktester::exception::holdingdoesnotexisterror">
+      <a href="../../AlgoBacktester/Exception/HoldingDoesNotExistError.html">HoldingDoesNotExistError</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Exception/InvalidParameterError" data-name="algobacktester::exception::invalidparametererror">
+      <a href="../../AlgoBacktester/Exception/InvalidParameterError.html">InvalidParameterError</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Exception/UnsupportedDirectionError" data-name="algobacktester::exception::unsupporteddirectionerror">
+      <a href="../../AlgoBacktester/Exception/UnsupportedDirectionError.html">UnsupportedDirectionError</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Portfolio" data-name="algobacktester::portfolio">
+      <a href="../../AlgoBacktester/Portfolio.html">Portfolio</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Position" data-name="algobacktester::position">
+      <a href="../../AlgoBacktester/Position.html">Position</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/SizeHandler" data-name="algobacktester::sizehandler">
+      <a href="../../AlgoBacktester/SizeHandler.html">SizeHandler</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/StatisticHandler" data-name="algobacktester::statistichandler">
+      <a href="../../AlgoBacktester/StatisticHandler.html">StatisticHandler</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/StatisticHandler/EquityPoint" data-name="algobacktester::statistichandler::equitypoint">
+      <a href="../../AlgoBacktester/StatisticHandler/EquityPoint.html">EquityPoint</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/StockExchange" data-name="algobacktester::stockexchange">
+      <a href="../../AlgoBacktester/StockExchange.html">StockExchange</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/StockExchange/AbstractCommission" data-name="algobacktester::stockexchange::abstractcommission">
+      <a href="../../AlgoBacktester/StockExchange/AbstractCommission.html">AbstractCommission</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/StockExchange/AbstractExchange" data-name="algobacktester::stockexchange::abstractexchange">
+      <a href="../../AlgoBacktester/StockExchange/AbstractExchange.html">AbstractExchange</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/StockExchange/AbstractExchangeFee" data-name="algobacktester::stockexchange::abstractexchangefee">
+      <a href="../../AlgoBacktester/StockExchange/AbstractExchangeFee.html">AbstractExchangeFee</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/StockExchange/Exchange" data-name="algobacktester::stockexchange::exchange">
+      <a href="../../AlgoBacktester/StockExchange/Exchange.html">Exchange</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/StockExchange/FixedCommission" data-name="algobacktester::stockexchange::fixedcommission">
+      <a href="../../AlgoBacktester/StockExchange/FixedCommission.html">FixedCommission</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/StockExchange/FixedExchangeFee" data-name="algobacktester::stockexchange::fixedexchangefee">
+      <a href="../../AlgoBacktester/StockExchange/FixedExchangeFee.html">FixedExchangeFee</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/StockExchange/PercentageCommission" data-name="algobacktester::stockexchange::percentagecommission">
+      <a href="../../AlgoBacktester/StockExchange/PercentageCommission.html">PercentageCommission</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/StockExchange/RangeCommission" data-name="algobacktester::stockexchange::rangecommission">
+      <a href="../../AlgoBacktester/StockExchange/RangeCommission.html">RangeCommission</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/StockExchange/ThresholdFixedCommission" data-name="algobacktester::stockexchange::thresholdfixedcommission">
+      <a href="../../AlgoBacktester/StockExchange/ThresholdFixedCommission.html">ThresholdFixedCommission</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class="parent open current" data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Tree" data-name="algobacktester::tree">
+      <a href="../../AlgoBacktester/Tree.html">Tree</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Tree/AbstractAlgorithm" data-name="algobacktester::tree::abstractalgorithm">
+      <a href="../../AlgoBacktester/Tree/AbstractAlgorithm.html">AbstractAlgorithm</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Tree/AbstractNode" data-name="algobacktester::tree::abstractnode">
+      <a href="../../AlgoBacktester/Tree/AbstractNode.html">AbstractNode</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Tree/AbstractStrategy" data-name="algobacktester::tree::abstractstrategy">
+      <a href="../../AlgoBacktester/Tree/AbstractStrategy.html">AbstractStrategy</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Tree/AlgorithmStack" data-name="algobacktester::tree::algorithmstack">
+      <a href="../../AlgoBacktester/Tree/AlgorithmStack.html">AlgorithmStack</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Tree/AndAlgorithm" data-name="algobacktester::tree::andalgorithm">
+      <a href="../../AlgoBacktester/Tree/AndAlgorithm.html">AndAlgorithm</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Tree/Asset" data-name="algobacktester::tree::asset">
+      <a href="../../AlgoBacktester/Tree/Asset.html">Asset</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Tree/BiggerThanAlgorithm" data-name="algobacktester::tree::biggerthanalgorithm">
+      <a href="../../AlgoBacktester/Tree/BiggerThanAlgorithm.html">BiggerThanAlgorithm</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Tree/BoolAlgorithm" data-name="algobacktester::tree::boolalgorithm">
+      <a href="../../AlgoBacktester/Tree/BoolAlgorithm.html">BoolAlgorithm</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Tree/EqualToAlgorithm" data-name="algobacktester::tree::equaltoalgorithm">
+      <a href="../../AlgoBacktester/Tree/EqualToAlgorithm.html">EqualToAlgorithm</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Tree/IfAlgorithm" data-name="algobacktester::tree::ifalgorithm">
+      <a href="../../AlgoBacktester/Tree/IfAlgorithm.html">IfAlgorithm</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Tree/IndicatorAlgorithm" data-name="algobacktester::tree::indicatoralgorithm">
+      <a href="../../AlgoBacktester/Tree/IndicatorAlgorithm.html">IndicatorAlgorithm</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Tree/LessThanAlgorithm" data-name="algobacktester::tree::lessthanalgorithm">
+      <a href="../../AlgoBacktester/Tree/LessThanAlgorithm.html">LessThanAlgorithm</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Tree/OrAlgorithm" data-name="algobacktester::tree::oralgorithm">
+      <a href="../../AlgoBacktester/Tree/OrAlgorithm.html">OrAlgorithm</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Tree/RunDailyAlgorithm" data-name="algobacktester::tree::rundailyalgorithm">
+      <a href="../../AlgoBacktester/Tree/RunDailyAlgorithm.html">RunDailyAlgorithm</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Tree/RunMonthlyAlgorithm" data-name="algobacktester::tree::runmonthlyalgorithm">
+      <a href="../../AlgoBacktester/Tree/RunMonthlyAlgorithm.html">RunMonthlyAlgorithm</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Tree/RunOnceAlgorithm" data-name="algobacktester::tree::runoncealgorithm">
+      <a href="../../AlgoBacktester/Tree/RunOnceAlgorithm.html">RunOnceAlgorithm</a>
+      
+    </li>
+  
+  <li class=" current" data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Tree/RunPeriodAlgorithm" data-name="algobacktester::tree::runperiodalgorithm">
+      <a href="../../AlgoBacktester/Tree/RunPeriodAlgorithm.html">RunPeriodAlgorithm</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Tree/RunQuarterlyAlgorithm" data-name="algobacktester::tree::runquarterlyalgorithm">
+      <a href="../../AlgoBacktester/Tree/RunQuarterlyAlgorithm.html">RunQuarterlyAlgorithm</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Tree/RunWeeklyAlgorithm" data-name="algobacktester::tree::runweeklyalgorithm">
+      <a href="../../AlgoBacktester/Tree/RunWeeklyAlgorithm.html">RunWeeklyAlgorithm</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Tree/RunYearlyAlgorithm" data-name="algobacktester::tree::runyearlyalgorithm">
+      <a href="../../AlgoBacktester/Tree/RunYearlyAlgorithm.html">RunYearlyAlgorithm</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Tree/SignalAlgorithm" data-name="algobacktester::tree::signalalgorithm">
+      <a href="../../AlgoBacktester/Tree/SignalAlgorithm.html">SignalAlgorithm</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Tree/SMA" data-name="algobacktester::tree::sma">
+      <a href="../../AlgoBacktester/Tree/SMA.html">SMA</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Tree/Strategy" data-name="algobacktester::tree::strategy">
+      <a href="../../AlgoBacktester/Tree/Strategy.html">Strategy</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/AlgoBacktester/Tree/XorAlgorithm" data-name="algobacktester::tree::xoralgorithm">
+      <a href="../../AlgoBacktester/Tree/XorAlgorithm.html">XorAlgorithm</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/mikeroher/algo-backtest/Enumerable" data-name="enumerable(t)">
+      <a href="../../Enumerable.html">Enumerable</a>
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">abstract class</span> AlgoBacktester::Tree::RunPeriodAlgorithm
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../AlgoBacktester/Tree/RunPeriodAlgorithm.html">AlgoBacktester::Tree::RunPeriodAlgorithm</a></li><li class="superclass"><a href="../../AlgoBacktester/Tree/AbstractAlgorithm.html">AlgoBacktester::Tree::AbstractAlgorithm</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>Direct Known Subclasses</h2>
+  <ul class="other-types-list">
+  
+    <li class="other-type"><a href="../../AlgoBacktester/Tree/RunDailyAlgorithm.html">AlgoBacktester::Tree::RunDailyAlgorithm</a></li>
+  
+    <li class="other-type"><a href="../../AlgoBacktester/Tree/RunMonthlyAlgorithm.html">AlgoBacktester::Tree::RunMonthlyAlgorithm</a></li>
+  
+    <li class="other-type"><a href="../../AlgoBacktester/Tree/RunQuarterlyAlgorithm.html">AlgoBacktester::Tree::RunQuarterlyAlgorithm</a></li>
+  
+    <li class="other-type"><a href="../../AlgoBacktester/Tree/RunWeeklyAlgorithm.html">AlgoBacktester::Tree::RunWeeklyAlgorithm</a></li>
+  
+    <li class="other-type"><a href="../../AlgoBacktester/Tree/RunYearlyAlgorithm.html">AlgoBacktester::Tree::RunYearlyAlgorithm</a></li>
+  
+  </ul>
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/mikeroher/algo-backtest/blob/86e03c74f2ce9670be9cee950b2eb299b90a21cf/src/engine/tree/period_algorithm.cr#L20" target="_blank">
+        engine/tree/period_algorithm.cr
+      </a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>Constructors</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new(run_always=false,value=0_f64)-class-method" class="signature"><strong>.new</strong>(run_always = <span class="n">false</span>, value = <span class="n">0_f64</span>)</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#dates_are_same?(now:Time,event:Time)-instance-method" class="signature"><strong>#dates_are_same?</strong>(now : Time, event : Time)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#run(strategy:AbstractStrategy):::Tuple(Bool,AlgorithmError?)-instance-method" class="signature"><strong>#run</strong>(strategy : AbstractStrategy) : ::Tuple(Bool, AlgorithmError?)</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+  <h3>Instance methods inherited from class <code><a href="../../AlgoBacktester/Tree/AbstractAlgorithm.html">AlgoBacktester::Tree::AbstractAlgorithm</a></code></h3>
+  
+  
+    <a href="../../AlgoBacktester/Tree/AbstractAlgorithm.html#run(strategy:AbstractStrategy):::Tuple(Bool,AlgorithmError?)-instance-method" class="tooltip">
+      <span>run(strategy : AbstractStrategy) : ::Tuple(Bool, AlgorithmError?)</span>
+    run</a>, 
+    
+  
+    <a href="../../AlgoBacktester/Tree/AbstractAlgorithm.html#run_always:Bool-instance-method" class="tooltip">
+      <span>run_always : Bool</span>
+    run_always</a>, 
+    
+  
+    <a href="../../AlgoBacktester/Tree/AbstractAlgorithm.html#run_always=(run_always:Bool)-instance-method" class="tooltip">
+      <span>run_always=(run_always : Bool)</span>
+    run_always=</a>, 
+    
+  
+    <a href="../../AlgoBacktester/Tree/AbstractAlgorithm.html#value:Float64-instance-method" class="tooltip">
+      <span>value : Float64</span>
+    value</a>
+    
+  
+
+
+    
+
+  <h3>Constructor methods inherited from class <code><a href="../../AlgoBacktester/Tree/AbstractAlgorithm.html">AlgoBacktester::Tree::AbstractAlgorithm</a></code></h3>
+  
+  
+    <a href="../../AlgoBacktester/Tree/AbstractAlgorithm.html#new(run_always,value)-class-method" class="tooltip">
+      <span>new(run_always, value)</span>
+    new</a>
+    
+  
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+  <h2>Constructor Detail</h2>
+  
+    <div class="entry-detail" id="new(run_always=false,value=0_f64)-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(run_always = <span class="n">false</span>, value = <span class="n">0_f64</span>)
+
+        <a class="method-permalink" href="#new(run_always=false,value=0_f64)-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/mikeroher/algo-backtest/blob/86e03c74f2ce9670be9cee950b2eb299b90a21cf/src/engine/tree/period_algorithm.cr#L21" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail" id="dates_are_same?(now:Time,event:Time)-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>dates_are_same?</strong>(now : Time, event : Time)
+
+        <a class="method-permalink" href="#dates_are_same?(now:Time,event:Time)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/mikeroher/algo-backtest/blob/86e03c74f2ce9670be9cee950b2eb299b90a21cf/src/engine/tree/period_algorithm.cr#L48" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="run(strategy:AbstractStrategy):::Tuple(Bool,AlgorithmError?)-instance-method">
+      <div class="signature">
+        
+        def <strong>run</strong>(strategy : <a href="../../AlgoBacktester/Tree/AbstractStrategy.html">AbstractStrategy</a>) : ::Tuple(Bool, AlgorithmError?)
+
+        <a class="method-permalink" href="#run(strategy:AbstractStrategy):::Tuple(Bool,AlgorithmError?)-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/mikeroher/algo-backtest/blob/86e03c74f2ce9670be9cee950b2eb299b90a21cf/src/engine/tree/period_algorithm.cr#L25" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>
