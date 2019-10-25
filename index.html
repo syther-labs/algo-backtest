@@ -398,29 +398,39 @@
 
 
 <div class="main-content">
-<h1>algo-backtester</h1>
+<h1>Tree-Based Algorithmic Backtester</h1>
 
-<p><span class="flag orange">TODO</span>  Write a description here</p>
+<p><img src="http://giphygifs.s3.amazonaws.com/media/5xtDarqlsEW6F7F14Fq/giphy.gif" alt="Eddie Murphy in Trading Places"/></p>
+
+<p>A modular, tree-based algorithmic backtester. The backtester is event-driven, has a historical stock price downloader via Tiingo's API and integrates with TA-Lib to integrate technical analysis into strategies. </p>
 
 <h2>Installation</h2>
 
-<p><span class="flag orange">TODO</span>  Write installation instructions here</p>
+<p>Add <code>algo-backtester</code> to your <code>shards.yml</code>.</p>
+
+<h2>Dependencies</h2>
+
+<ul><li>TA-Lib</li><li>Crystal dependencies (installed automatically via <code>shards install</code>):</li><ul><li><code>VCR</code> (for caching API requests)</li><li><code>halite</code> (HTTP requests)</li><li><code>crystal_talib</code>  (TA-Lib C bindings)</li></ul></ul>
 
 <h2>Usage</h2>
 
-<p><span class="flag orange">TODO</span>  Write usage instructions here</p>
+<pre><code class="language-crystal"><span class="k">require</span> </code></pre>
 
-<h2>Development</h2>
+<h2>Comparison with Alternatives</h2>
 
-<p><span class="flag orange">TODO</span>  Write development instructions here</p>
+<ul><li><a href="https://github.com/pmorissette/bt" target="_blank">pmorissette's bt Python library</a></li><ul><li>Advantages of This Implementation:</li><li>2+ orders of magnitude faster (due to Crystal's compiled nature)</li><li>Type-safe - the Python implementation has some uses of untyped dictionaries; everything in Crystal is typed.</li><li>All technical analysis is computed in C with the very popular TA-Lib library; doesn't rely on a Python package to compute technical analysis</li><li>Advantages of Python Implementation:</li><li>Significantly more algorithms available (e.g., select_where)</li><li>More statistics automatically calculated (this is a TODO of the crystal implementation)</li><li>Better documentations</li><li>Automatic plotting via <code>matplotlib</code></li></ul></ul>
+
+<ul><li><a href="https://github.com/dirkolbrich/gobacktest" target="_blank">dirk olbrich's gobacktest Golang package</a></li><ul><li>Advantage of This Implementation:</li><li>Multiple logic flaws were identified in Go implementation that were resolved in this implementation</li><li>Go implementation seems to be a basic proof-of-concept.</li><li>All technical analysis is computed in C with the very popular TA-Lib library; doesn't rely on a Python package to compute technical analysis</li><li>While Go is definitely the more popular language, it becomes a little awkward to create algorithms.</li><li>Advantage of Go Implementation:</li><li>Better tested</li></ul></ul>
+
+<h2>TODO</h2>
+
+<ul><li>[] Add more specs (currently specs exist for non-algorithm classes/structs; need to extend to Algorithms)</li><li>[] Add better documentation</li><li>[] Add algorithms for more TA-Lib functions (currently just shows SMA as a prototype)</li><li>[] Compute + print more statistics (currently only shows Sharpe, Sortino and Cumulative Return)</li></ul>
 
 <h2>Contributing</h2>
 
-<ol><li>Fork it (&lt;https://github.com/your-github-user/algo-backtester/fork>)</li><li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li><li>Commit your changes (<code>git commit -am 'Add some feature'</code>)</li><li>Push to the branch (<code>git push origin my-new-feature</code>)</li><li>Create a new Pull Request</li></ol>
+<ol><li>Fork it (&lt;https://github.com/mikeroher/algo-backtester/fork>)</li><li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li><li>Commit your changes (<code>git commit -am 'Add some feature'</code>)</li><li>Push to the branch (<code>git push origin my-new-feature</code>)</li><li>Create a new Pull Request</li></ol>
 
-<h2>Contributors</h2>
 
-<ul><li><a href="https://github.com/your-github-user" target="_blank">Michael Roher</a> - creator and maintainer</li></ul>
 </div>
 </body>
 </html>
