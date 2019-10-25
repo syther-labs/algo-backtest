@@ -16,6 +16,11 @@ include AlgoBacktester::Event
 include AlgoBacktester::Tree
 include AlgoBacktester::StockExchange
 
+alias DD = AlgoBacktester::DataDownloader
+alias E = AlgoBacktester::Event
+alias T = AlgoBacktester::Tree
+alias SE = AlgoBacktester::StockExchange
+
 def create_bar(args : NamedTuple? = nil)
   kDefaultArgs = {timestamp: Time.local, symbol: "AAPL", adj_close: 224.4_f64,
                   adj_high: 228.06_f64, adj_low: 224.33_f64, adj_open: 225.82_f64,

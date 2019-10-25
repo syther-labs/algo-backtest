@@ -5,6 +5,9 @@ module AlgoBacktester::StockExchange
     property max_commission : Float64
 
     def initialize(@commission_perc, @min_commission, @max_commission)
+      raise InvalidParameterError.new("Commission % must be between 0 and 1") unless 0 <= @commission_perc <= 1
+      raise InvalidParameterError.new("Min + max commission must be >= 0") unless @min_commission >= 0 && @max_commission >= 0
+      raise InvalidParameterError.new("Max comission < min commission") unless @max_commission > @min_commission
     end
 
     def calculate(quantity : Int64, price : Float64) : Float64

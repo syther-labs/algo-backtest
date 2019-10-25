@@ -1,9 +1,9 @@
 require "../../spec_helper"
 
 # We create this class to test the abstract node properties
-class MockNode < AlgoBacktester::Tree::AbstractNode; end
+class MockNode < T::AbstractNode; end
 
-describe AlgoBacktester::Tree::AbstractNode do
+describe T::AbstractNode do
   describe "#name" do
     it "should return the name of the node" do
       node = MockNode.new(name: "sample-node-name")
