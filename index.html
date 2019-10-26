@@ -408,6 +408,50 @@
 
 <p>Add <code>algo-backtester</code> to your <code>shards.yml</code>.</p>
 
+<h3>TA-Lib</h3>
+
+<p>To use the TA-Lib integration, you need to have the <a href="http://ta-lib.org/hdr_dw.html" target="_blank">TA-Lib</a> already installed. You should
+probably follow their installation directions for your platform, but some
+suggestions are included below for reference.</p>
+
+<h5>Mac OS X</h5>
+
+<pre><code></code></pre>
+
+<h5>Windows</h5>
+
+<p>Download <a href="http://prdownloads.sourceforge.net/ta-lib/ta-lib-0.4.0-msvc.zip" target="_blank">ta-lib-0.4.0-msvc.zip</a>
+and unzip to <code></code>C:\ta-lib<code></code>.</p>
+
+<blockquote>This is a 32-bit binary release.  If you want to use 64-bit Python, you will
+> need to build a 64-bit version of the library. Some unofficial (<strong>and
+> unsupported</strong>) instructions for building on 64-bit Windows 10, here for
+> reference:
+>
+> 1. Download and Unzip <code></code>ta-lib-0.4.0-msvc.zip<code></code>
+> 2. Move the Unzipped Folder <code></code>ta-lib<code></code> to <code></code>C:\<code></code>
+> 3. Download and Install Visual Studio Community 2015
+>    * Remember to Select <code></code>[Visual C++]<code></code> Feature
+> 4. Build TA-Lib Library
+>    * From Windows Start Menu, Start <code></code>[VS2015 x64 Native Tools Command
+>      Prompt]<code></code>
+>    * Move to <code></code>C:\ta-lib\c\make\cdr\win32\msvc<code></code>
+>    * Build the Library <code></code>nmake<code></code></blockquote>
+
+<p>You might also try these unofficial windows binaries for both 32-bit and
+64-bit:</p>
+
+<p>https://www.lfd.uci.edu/~gohlke/pythonlibs/#ta-lib</p>
+
+<h5>Linux</h5>
+
+<p>Download <a href="http://prdownloads.sourceforge.net/ta-lib/ta-lib-0.4.0-src.tar.gz" target="_blank">ta-lib-0.4.0-src.tar.gz</a> and:</p>
+
+<pre><code></code></pre>
+
+<blockquote>If you build <code></code>TA-Lib<code></code> using <code></code>make -jX<code></code> it will fail but that's OK!
+> Simply rerun <code></code>make -jX<code></code> followed by <code></code>[sudo] make install<code></code>.</blockquote>
+
 <h2>Dependencies</h2>
 
 <ul><li>TA-Lib</li><li>Crystal dependencies (installed automatically via <code>shards install</code>):</li><ul><li><code>VCR</code> (for caching API requests)</li><li><code>halite</code> (HTTP requests)</li><li><code>crystal_talib</code>  (TA-Lib C bindings)</li></ul></ul>
@@ -427,6 +471,10 @@
 <h2>Contributing</h2>
 
 <ol><li>Fork it (&lt;https://github.com/mikeroher/algo-backtester/fork>)</li><li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li><li>Commit your changes (<code>git commit -am 'Add some feature'</code>)</li><li>Push to the branch (<code>git push origin my-new-feature</code>)</li><li>Create a new Pull Request</li></ol>
+
+<h2>Acknowledgements</h2>
+
+<ul><li>TA Lib Installation instructions from <a href="https://github.com/mrjbq7/ta-lib/blob/master/README.md" target="_blank">mrjbq7/ta-lib Python Library</a></li><li>Implementation inspired by the two alternatives listed above.</li></ul>
 
 
 </div>
