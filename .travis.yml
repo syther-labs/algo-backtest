@@ -1,4 +1,10 @@
 language: crystal
+
+before_install:
+  - wget http://prdownloads.sourceforge.net/ta-lib/ta-lib-0.4.0-src.tar.gz # install TA-lib
+  - tar -xvzf ta-lib-0.4.0-src.tar.gz
+  - cd ta-lib/ && ./configure --prefix=/usr LDFLAGS="-lm" && make && sudo make install && cd .. && rm -r ta-lib
+
 script:
   - crystal spec
   - crystal tool format --check
