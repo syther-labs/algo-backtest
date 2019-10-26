@@ -83,8 +83,8 @@ module AlgoBacktester
         order = @exchange.on_order(event, @data)
         @event_queue << order
       when FillEvent
-        transaction = @portfolio.on_fill(event, @data)
-        @statistics.track_transaction(transaction)
+        @portfolio.on_fill(event, @data)
+        @statistics.track_transaction(event)
       end
     end
 

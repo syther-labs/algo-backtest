@@ -10,14 +10,12 @@ module AlgoBacktester::Tree
 
     # Runs the algorithm, returning the bool value of the algorithm
     def run(strategy : AbstractStrategy) : {Bool, AlgorithmError?}
-      result_condition = @condition.run(strategy)
-
+      result_condition, err = @condition.run(strategy)
       if result_condition
-        result_action = @action.run(strategy)
+        result_action, err = @action.run(strategy)
         return {true, nil} if result_action
         return {false, AlgorithmError.new(("if condition met but result was false"))}
       end
-
       return {true, nil} # If condition was not met
     end
   end
@@ -33,8 +31,8 @@ module AlgoBacktester::Tree
 
     # Runs the algorithm, returning the bool value of the algorithm
     def run(strategy : AbstractStrategy) : {Bool, AlgorithmError?}
-      result_first = @first.run(strategy)
-      result_second = @second.run(strategy)
+      result_first, err_first = @first.run(strategy)
+      result_second, err_second = @second.run(strategy)
       is_and = result_first && result_second
       return {true, nil} if is_and
       return {false, AlgorithmError.new(("AND condition not held"))}
@@ -52,10 +50,10 @@ module AlgoBacktester::Tree
 
     # Runs the algorithm, returning the bool value of the algorithm
     def run(strategy : AbstractStrategy) : {Bool, AlgorithmError?}
-      result_first = @first.run(strategy)
-      result_second = @second.run(strategy)
+      result_first, err_first = @first.run(strategy)
+      result_second, err_second = @second.run(strategy)
 
-      is_or = result_first && result_second
+      is_or = result_first || result_second
       return {true, nil} if is_or
       return {false, AlgorithmError.new(("OR condition not held"))}
     end
@@ -72,9 +70,9 @@ module AlgoBacktester::Tree
 
     # Runs the algorithm, returning the bool value of the algorithm
     def run(strategy : AbstractStrategy) : {Bool, AlgorithmError?}
-      result_first = @first.run(strategy)
-      result_second = @second.run(strategy)
-      is_xor = (!result_first && !result_second) || (result_first && result_second)
+      result_first, err_first = @first.run(strategy)
+      result_second, err_second = @second.run(strategy)
+      is_xor = (result_first && !result_second) || (!result_first && result_second)
       return {true, nil} if is_xor
       return {false, AlgorithmError.new(("XOR condition not held"))}
     end
