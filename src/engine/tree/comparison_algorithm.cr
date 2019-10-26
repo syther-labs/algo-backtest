@@ -10,8 +10,8 @@ module AlgoBacktester::Tree
 
     # Runs the algorithm, returning the bool value of the algorithm
     def run(strategy : AbstractStrategy) : {Bool, AlgorithmError?}
-      result_first = @first.run(strategy)
-      result_second = @second.run(strategy)
+      result_first, error_first = @first.run(strategy)
+      result_second, error_second = @second.run(strategy)
 
       return {false, AlgorithmError.new("Algos passed in to > had non-true values")} unless result_first && result_second
 
@@ -32,8 +32,8 @@ module AlgoBacktester::Tree
 
     # Runs the algorithm, returning the bool value of the algorithm
     def run(strategy : AbstractStrategy) : {Bool, AlgorithmError?}
-      result_first = @first.run(strategy)
-      result_second = @second.run(strategy)
+      result_first, error_first = @first.run(strategy)
+      result_second, error_second = @second.run(strategy)
 
       return {false, AlgorithmError.new("Algos passed in to < had non-true values")} unless result_first && result_second
 
@@ -55,8 +55,8 @@ module AlgoBacktester::Tree
 
     # Runs the algorithm, returning the bool value of the algorithm
     def run(strategy : AbstractStrategy) : {Bool, AlgorithmError?}
-      result_first = @first.run(strategy)
-      result_second = @second.run(strategy)
+      result_first, error_first = @first.run(strategy)
+      result_second, error_second = @second.run(strategy)
 
       return {false, AlgorithmError.new("Algos passed in to == had non-true values")} unless result_first && result_second
 

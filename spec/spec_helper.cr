@@ -79,3 +79,7 @@ def create_fill(args : NamedTuple? = nil)
     AlgoBacktester::Event::FillEvent.new(**kDefaultArgs.merge(args))
   end
 end
+
+def create_strat
+  Strategy.new("this-is-a-test")
+end

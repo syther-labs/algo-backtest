@@ -34,7 +34,6 @@ module AlgoBacktester::Tree
 
       # If this is the first entry, allow the strategy to run.
       return {true, nil} if history.size <= 1
-
       now_timestamp = event.timestamp
 
       event_timestamp = history.first.timestamp
@@ -45,29 +44,29 @@ module AlgoBacktester::Tree
       return {false, AlgorithmError.new("Dates are in same period")}
     end
 
-    abstract def dates_are_same?(now : Time, event : Time)
+    private abstract def dates_are_same?(now : Time, event : Time)
   end
 
   class RunDailyAlgorithm < RunPeriodAlgorithm
-    def dates_are_same?(now : Time, event : Time)
-      return now.day_of_year == event.day_of_year
+    private def dates_are_same?(now : Time, event : Time)
+      return now.day_of_year == event.day_of_year && now.year == event.year
     end
   end
 
   class RunWeeklyAlgorithm < RunPeriodAlgorithm
-    def dates_are_same?(now : Time, event : Time)
+    private def dates_are_same?(now : Time, event : Time)
       return now.calendar_week == event.calendar_week
     end
   end
 
   class RunMonthlyAlgorithm < RunPeriodAlgorithm
-    def dates_are_same?(now : Time, event : Time)
+    private def dates_are_same?(now : Time, event : Time)
       return now.month == event.month && now.year == event.year
     end
   end
 
   class RunQuarterlyAlgorithm < RunPeriodAlgorithm
-    def dates_are_same?(now : Time, event : Time)
+    private def dates_are_same?(now : Time, event : Time)
       return date_quarter(now) == date_quarter(event) && now.year == event.year
     end
 
@@ -88,8 +87,7 @@ module AlgoBacktester::Tree
   end
 
   class RunYearlyAlgorithm < RunPeriodAlgorithm
-    def dates_are_same?(now : Time, event : Time)
-      puts "now.year == event.year => #{now.to_s("%Y")} == #{now.to_s("%Y")} = #{event.year == now.year}"
+    private def dates_are_same?(now : Time, event : Time)
       return now.year == event.year
     end
   end
