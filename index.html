@@ -416,15 +416,13 @@
 
 <pre><code class="language-crystal"><span class="k">require</span> </code></pre>
 
-<h2>Comparison with Alternatives</h2>
+<h2>Alternatives</h2>
 
-<ul><li><a href="https://github.com/pmorissette/bt" target="_blank">pmorissette's bt Python library</a></li><ul><li>Advantages of This Implementation:</li><li>2+ orders of magnitude faster (due to Crystal's compiled nature)</li><li>Type-safe - the Python implementation has some uses of untyped dictionaries; everything in Crystal is typed.</li><li>All technical analysis is computed in C with the very popular TA-Lib library; doesn't rely on a Python package to compute technical analysis</li><li>Advantages of Python Implementation:</li><li>Significantly more algorithms available (e.g., select_where)</li><li>More statistics automatically calculated (this is a TODO of the crystal implementation)</li><li>Better documentations</li><li>Automatic plotting via <code>matplotlib</code></li></ul></ul>
-
-<ul><li><a href="https://github.com/dirkolbrich/gobacktest" target="_blank">dirk olbrich's gobacktest Golang package</a></li><ul><li>Advantage of This Implementation:</li><li>Multiple logic flaws were identified in Go implementation that were resolved in this implementation</li><li>Go implementation seems to be a basic proof-of-concept.</li><li>All technical analysis is computed in C with the very popular TA-Lib library; Go implementation reimplements SMA in Go as a proof of concept.</li><li>While Go is definitely the more popular language, it becomes a little awkward to create algorithms.</li><li>Advantage of Go Implementation:</li><li>Better tested</li></ul></ul>
+<ul><li><a href="https://github.com/pmorissette/bt" target="_blank">pmorissette's bt Python library</a></li><li><a href="https://github.com/dirkolbrich/gobacktest" target="_blank">dirk olbrich's gobacktest Golang package</a></li></ul>
 
 <h2>TODO</h2>
 
-<ul><li>[] Add more specs (currently specs exist for non-algorithm classes/structs; need to extend to Algorithms)</li><li>[] Add better documentation</li><li>[] Add algorithms for more TA-Lib functions (currently just shows SMA as a prototype)</li><li>[] Compute + print more statistics (currently only shows Sharpe, Sortino and Cumulative Return)</li></ul>
+<ul><li>[ ] Add more specs (currently specs exist for non-algorithm classes/structs; need to extend to Algorithms)</li><li>[ ] Add better documentation</li><li>[ ] Add algorithms for more TA-Lib functions (currently just shows SMA as a prototype)</li><li>[ ] Compute + print more statistics (currently only shows Sharpe, Sortino and Cumulative Return)</li></ul>
 
 <h2>Contributing</h2>
 
