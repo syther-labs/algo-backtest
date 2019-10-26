@@ -41,36 +41,18 @@ require 'algo-backtester'
   backtest.statistics.print_summary
 ```
 
-## Comparison with Alternatives
+## Alternatives
 
 + [pmorissette's bt Python library](https://github.com/pmorissette/bt)
-    + Advantages of This Implementation:
-        + 2+ orders of magnitude faster (due to Crystal's compiled nature)
-        + Type-safe - the Python implementation has some uses of untyped dictionaries; everything in Crystal is typed.
-        + All technical analysis is computed in C with the very popular TA-Lib library; doesn't rely on a Python package to compute technical analysis
-    + Advantages of Python Implementation:
-        + Significantly more algorithms available (e.g., select_where)
-        + More statistics automatically calculated (this is a TODO of the crystal implementation)
-        + Better documentations
-        + Automatic plotting via `matplotlib`
-
 + [dirk olbrich's gobacktest Golang package](https://github.com/dirkolbrich/gobacktest)
-    + Advantage of This Implementation:
-        + Multiple logic flaws were identified in Go implementation that were resolved in this implementation
-        + Go implementation seems to be a basic proof-of-concept.
-        + All technical analysis is computed in C with the very popular TA-Lib library; Go implementation reimplements SMA in Go as a proof of concept.
-        + While Go is definitely the more popular language, it becomes a little awkward to create algorithms.
-    + Advantage of Go Implementation:
-        + Better tested
-
 
 
 ## TODO
 
-- [] Add more specs (currently specs exist for non-algorithm classes/structs; need to extend to Algorithms)
-- [] Add better documentation
-- [] Add algorithms for more TA-Lib functions (currently just shows SMA as a prototype)
-- [] Compute + print more statistics (currently only shows Sharpe, Sortino and Cumulative Return)
+- [ ] Add more specs (currently specs exist for non-algorithm classes/structs; need to extend to Algorithms)
+- [ ] Add better documentation
+- [ ] Add algorithms for more TA-Lib functions (currently just shows SMA as a prototype)
+- [ ] Compute + print more statistics (currently only shows Sharpe, Sortino and Cumulative Return)
 
 ## Contributing
 
