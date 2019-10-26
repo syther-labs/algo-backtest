@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/mikeroher/algo-backtest.svg?branch=master)](https://travis-ci.org/mikeroher/algo-backtest)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmikeroher%2Falgo-backtest.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmikeroher%2Falgo-backtest?ref=badge_shield)
 
 # Tree-Based Algorithmic Backtester
 
@@ -119,3 +120,7 @@ require 'algo-backtester'
 + TA Lib Installation instructions from [mrjbq7/ta-lib Python Library](https://github.com/mrjbq7/ta-lib/blob/master/README.md)
 + Implementation inspired by the two alternatives listed above.
 
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmikeroher%2Falgo-backtest.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmikeroher%2Falgo-backtest?ref=badge_large)
