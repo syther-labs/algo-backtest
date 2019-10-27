@@ -101,14 +101,13 @@ require 'algo-backtester'
 
 ## TODO
 
-- [ ] Add more specs (currently specs exist for non-algorithm classes/structs; need to extend to Algorithms)
-- [ ] Add better documentation
+- [ ] Improve documentation
 - [ ] Add algorithms for more TA-Lib functions (currently just shows SMA as a prototype)
 - [ ] Compute + print more statistics (currently only shows Sharpe, Sortino and Cumulative Return)
 
 ## Contributing
 
-1. Fork it (<https://github.com/mikeroher/algo-backtester/fork>)
+1. Fork it (<https://github.com/mikeroher/algo-backtest/fork>)
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)

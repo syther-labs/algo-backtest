@@ -1,12 +1,12 @@
 require "../../spec_helper"
 
-describe AlgoBacktester::Portfolio do
+describe AB::Portfolio do
   describe "#reset" do
     it "should reset a full portfolio" do
       port = create_portfolio
 
       # Add a holding.
-      dh = AlgoBacktester::DataHandler.new
+      dh = AB::DataHandler.new
       port.on_fill(create_fill, dh)
       port.holdings.empty?.should be_false
 
@@ -22,13 +22,13 @@ describe AlgoBacktester::Portfolio do
   end
   describe "#on_signal" do
     it "should return a sized order from a fill that has an existing bar" do
-      dh = AlgoBacktester::DataHandler.new
+      dh = AB::DataHandler.new
       dh.stream = [create_bar({symbol: "AAPL"})]
       dh.next!
 
-      signal = AlgoBacktester::Event::SignalEvent.new(
+      signal = AB::Event::SignalEvent.new(
         symbol: "AAPL",
-        direction: AlgoBacktester::Event::Direction::Buy,
+        direction: AB::Event::Direction::Buy,
         timestamp: 1.day.ago
       )
       port = create_portfolio
@@ -40,11 +40,11 @@ describe AlgoBacktester::Portfolio do
       fill.quantity.should be > 1
     end
     it "should fail when handling a signal with no data" do
-      dh = AlgoBacktester::DataHandler.new
+      dh = AB::DataHandler.new
 
-      signal = AlgoBacktester::Event::SignalEvent.new(
+      signal = AB::Event::SignalEvent.new(
         symbol: "AAPL",
-        direction: AlgoBacktester::Event::Direction::Buy,
+        direction: AB::Event::Direction::Buy,
         timestamp: 1.day.ago
       )
       port = create_portfolio
@@ -63,8 +63,8 @@ describe AlgoBacktester::Portfolio do
     it "should return position with a long position" do
       port = create_portfolio
       # Add a holding.
-      dh = AlgoBacktester::DataHandler.new
-      fill = create_fill({direction: AlgoBacktester::Event::Direction::Buy})
+      dh = AB::DataHandler.new
+      fill = create_fill({direction: AB::Event::Direction::Buy})
       port.on_fill(fill, dh)
       actual = port.is_invested("AAPL")
       actual.should_not be_nil
@@ -74,8 +74,8 @@ describe AlgoBacktester::Portfolio do
     it "should return position with a short position" do
       port = create_portfolio
       # Add a holding.
-      dh = AlgoBacktester::DataHandler.new
-      fill = create_fill({direction: AlgoBacktester::Event::Direction::Sell})
+      dh = AB::DataHandler.new
+      fill = create_fill({direction: AB::Event::Direction::Sell})
       port.on_fill(fill, dh)
       actual = port.is_invested("AAPL")
       actual.should_not be_nil
@@ -85,8 +85,8 @@ describe AlgoBacktester::Portfolio do
     it "should return nil when not invested" do
       port = create_portfolio
       # Add a holding.
-      dh = AlgoBacktester::DataHandler.new
-      fill = create_fill({direction: AlgoBacktester::Event::Direction::Buy})
+      dh = AB::DataHandler.new
+      fill = create_fill({direction: AB::Event::Direction::Buy})
       port.on_fill(fill, dh)
       actual = port.is_invested("NOT_AAPL")
       actual.should be_nil
@@ -102,8 +102,8 @@ describe AlgoBacktester::Portfolio do
     it "should return position with a long position" do
       port = create_portfolio
       # Add a holding.
-      dh = AlgoBacktester::DataHandler.new
-      fill = create_fill({direction: AlgoBacktester::Event::Direction::Buy})
+      dh = AB::DataHandler.new
+      fill = create_fill({direction: AB::Event::Direction::Buy})
       port.on_fill(fill, dh)
       actual = port.is_long("AAPL")
       actual.should_not be_nil
@@ -113,8 +113,8 @@ describe AlgoBacktester::Portfolio do
     it "should return nil with a short position" do
       port = create_portfolio
       # Add a holding.
-      dh = AlgoBacktester::DataHandler.new
-      fill = create_fill({direction: AlgoBacktester::Event::Direction::Sell})
+      dh = AB::DataHandler.new
+      fill = create_fill({direction: AB::Event::Direction::Sell})
       port.on_fill(fill, dh)
       actual = port.is_long("AAPL")
       actual.should be_nil
@@ -123,8 +123,8 @@ describe AlgoBacktester::Portfolio do
     it "should return nil when not invested" do
       port = create_portfolio
       # Add a holding.
-      dh = AlgoBacktester::DataHandler.new
-      fill = create_fill({direction: AlgoBacktester::Event::Direction::Buy})
+      dh = AB::DataHandler.new
+      fill = create_fill({direction: AB::Event::Direction::Buy})
       port.on_fill(fill, dh)
       actual = port.is_long("NOT_AAPL")
       actual.should be_nil
@@ -140,8 +140,8 @@ describe AlgoBacktester::Portfolio do
     it "should return nil with a long position" do
       port = create_portfolio
       # Add a holding.
-      dh = AlgoBacktester::DataHandler.new
-      fill = create_fill({direction: AlgoBacktester::Event::Direction::Buy})
+      dh = AB::DataHandler.new
+      fill = create_fill({direction: AB::Event::Direction::Buy})
       port.on_fill(fill, dh)
       actual = port.is_short("AAPL")
       actual.should be_nil
@@ -150,8 +150,8 @@ describe AlgoBacktester::Portfolio do
     it "should return a position with a short position" do
       port = create_portfolio
       # Add a holding.
-      dh = AlgoBacktester::DataHandler.new
-      fill = create_fill({direction: AlgoBacktester::Event::Direction::Sell})
+      dh = AB::DataHandler.new
+      fill = create_fill({direction: AB::Event::Direction::Sell})
       port.on_fill(fill, dh)
       actual = port.is_short("AAPL")
       actual.should_not be_nil
@@ -161,8 +161,8 @@ describe AlgoBacktester::Portfolio do
     it "should return nil when not invested" do
       port = create_portfolio
       # Add a holding.
-      dh = AlgoBacktester::DataHandler.new
-      fill = create_fill({direction: AlgoBacktester::Event::Direction::Buy})
+      dh = AB::DataHandler.new
+      fill = create_fill({direction: AB::Event::Direction::Buy})
       port.on_fill(fill, dh)
       actual = port.is_short("NOT_AAPL")
       actual.should be_nil
@@ -172,10 +172,10 @@ describe AlgoBacktester::Portfolio do
   describe "#value" do
     it "should return value with holdings and initial cash" do
       q = 1_i64
-      d = AlgoBacktester::Event::Direction::Buy
+      d = AB::Event::Direction::Buy
       port = create_portfolio(initial_cash: 1_000)
       # # Add a holding.
-      dh = AlgoBacktester::DataHandler.new
+      dh = AB::DataHandler.new
       fills = [create_fill({symbol: "AAPL", quantity: q, direction: d, price: 200_f64}),
                create_fill({symbol: "BANANA", quantity: q, direction: d, price: 300_f64}),
                create_fill({symbol: "CHERRY", quantity: q, direction: d, price: 500_f64}),

@@ -16,10 +16,11 @@ include AlgoBacktester::Event
 include AlgoBacktester::Tree
 include AlgoBacktester::StockExchange
 
-alias DD = AlgoBacktester::DataDownloader
-alias E = AlgoBacktester::Event
-alias T = AlgoBacktester::Tree
-alias SE = AlgoBacktester::StockExchange
+alias AB = AlgoBacktester
+alias DD = AB::DataDownloader
+alias E = AB::Event
+alias T = AB::Tree
+alias SE = AB::StockExchange
 
 def create_bar(args : NamedTuple? = nil)
   kDefaultArgs = {timestamp: Time.local, symbol: "AAPL", adj_close: 224.4_f64,
@@ -28,20 +29,20 @@ def create_bar(args : NamedTuple? = nil)
                   div_cash: 0.0_f64, high: 228.06_f64, low: 224.33_f64, split_factor: 1.0_f64, volume: 29282700_i64}
 
   if args.nil?
-    AlgoBacktester::Event::Bar.new(**kDefaultArgs)
+    AB::Event::Bar.new(**kDefaultArgs)
   else
-    AlgoBacktester::Event::Bar.new(**kDefaultArgs.merge(args))
+    AB::Event::Bar.new(**kDefaultArgs.merge(args))
   end
 end
 
 def create_order(args : NamedTuple? = nil)
   kDefaultArgs = {
     id:              1_i64,
-    symbol:          "ACME",
+    symbol:          "AAPL",
     timestamp:       Time.local,
-    type:            AlgoBacktester::Event::OrderType::Market,
-    direction:       AlgoBacktester::Event::Direction::EXIT,
-    status:          AlgoBacktester::Event::OrderStatus::None,
+    type:            AB::Event::OrderType::Market,
+    direction:       AB::Event::Direction::Exit,
+    status:          AB::Event::OrderStatus::Open,
     asset_type:      "Gold",
     quantity:        1_i64,
     quantity_filled: 1_i64,
@@ -49,34 +50,34 @@ def create_order(args : NamedTuple? = nil)
     stop_price:      1.0,
   }
   if args.nil?
-    AlgoBacktester::Event::OrderEvent.new(**kDefaultArgs)
+    AB::Event::OrderEvent.new(**kDefaultArgs)
   else
-    AlgoBacktester::Event::OrderEvent.new(**kDefaultArgs.merge(args))
+    AB::Event::OrderEvent.new(**kDefaultArgs.merge(args))
   end
 end
 
 def create_order_sizer
-  AlgoBacktester::SizeHandler.new(default_size: 100_i64, default_value: 1000_f64)
+  AB::SizeHandler.new(default_size: 100_i64, default_value: 1000_f64)
 end
 
 def create_portfolio(initial_cash : Float64 = 1000_f64)
-  AlgoBacktester::Portfolio.new(initial_cash)
+  AB::Portfolio.new(initial_cash)
 end
 
 def create_fill(args : NamedTuple? = nil)
   kDefaultArgs = {
     timestamp:    Time.local,
     symbol:       "AAPL",
-    direction:    AlgoBacktester::Event::Direction::Buy,
+    direction:    AB::Event::Direction::Buy,
     quantity:     10_i64,
     price:        100.0_f64,
     commission:   0_f64,
     exchange_fee: 0_f64,
   }
   if args.nil?
-    AlgoBacktester::Event::FillEvent.new(**kDefaultArgs)
+    AB::Event::FillEvent.new(**kDefaultArgs)
   else
-    AlgoBacktester::Event::FillEvent.new(**kDefaultArgs.merge(args))
+    AB::Event::FillEvent.new(**kDefaultArgs.merge(args))
   end
 end
 
