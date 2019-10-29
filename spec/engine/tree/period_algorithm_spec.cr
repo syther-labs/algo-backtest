@@ -26,19 +26,19 @@ end
 
 describe MockRunPeriodAlgorithm do
   it "should return error if data is nil and/or event is nil" do
-    no_data_no_event_strat = strat()
+    no_data_no_event_strat = create_strat()
     rpa = MockRunPeriodAlgorithm.new
     got1 = rpa.run(create_strat)
     got1[0].should be_false
     got1[1].is_a?(Exception).should be_true
 
-    no_data_strat = strat()
+    no_data_strat = create_strat()
     no_data_strat.event = create_fill
     got2 = rpa.run(create_strat)
     got2[0].should be_false
     got2[1].is_a?(Exception).should be_true
 
-    no_event_strat = strat()
+    no_event_strat = create_strat()
     no_event_strat.data = AlgoBacktester::DataHandler.new
     got3 = rpa.run(create_strat)
     got3[0].should be_false
