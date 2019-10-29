@@ -20,8 +20,8 @@ module AlgoBacktester
       @event_history = [] of AbstractEvent
       @transaction_history = [] of FillEvent
       @equity_history = [] of EquityPoint
-      @high = EquityPoint.new(timestamp: Time.now, equity: 0_f64, equity_return: 0_f64, drawdown: 0_f64)
-      @low = EquityPoint.new(timestamp: Time.now, equity: 0_f64, equity_return: 0_f64, drawdown: 0_f64)
+      @high = EquityPoint.new(timestamp: Time.utc, equity: 0_f64, equity_return: 0_f64, drawdown: 0_f64)
+      @low = EquityPoint.new(timestamp: Time.utc, equity: 0_f64, equity_return: 0_f64, drawdown: 0_f64)
     end
 
     def track_event(event : AbstractEvent)

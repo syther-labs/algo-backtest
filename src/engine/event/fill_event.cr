@@ -18,8 +18,13 @@ module AlgoBacktester::Event
 
     def net_value : Float64
       nv = value()
-      nv += direction == Direction::Buy ? cost : -cost
+      nv += @direction == Direction::Buy ? cost : -cost
       return nv
+    end
+
+    def to_s : String
+      return "Fill(ts: #{@timestamp.to_s("%Y-%m-%d")}, sym: #{@symbol}, \
+      dir: #{@direction}, $: $#{@price.round(2)}, #: #{@quantity}, fee: $#{cost.round(2)})"
     end
   end
 end

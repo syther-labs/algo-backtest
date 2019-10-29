@@ -33,8 +33,9 @@ module AlgoBacktester::Event
                    @quantity, @quantity_filled = nil, @limit_price = nil, @stop_price = nil)
     end
 
-    def cancel
-      status = OrderStatus::Cancelled
+    def to_s : String
+      return "Order(ts: #{@timestamp.to_s("%Y-%m-%d")}, sym: #{@symbol}, \
+      dir: #{@direction}, #: #{@quantity}, type: #{@type})"
     end
   end
 end
