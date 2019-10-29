@@ -71,27 +71,7 @@ $ sudo make install
 
 ## Usage
 
-```crystal
-require 'algo-backtester'
-
-
-  bars = TiingoDataDownloader.new.query("AAPL", 3.months.ago, Time.now)
-
-  data = DataHandler.new(stream: bars)
-
-  strategy = Strategy.new("buy_and_hold")
-  strategy.set_algo(
-    RunMonthlyAlgorithm.new,
-    SignalAlgorithm.new(direction: :buy)
-  )
-  strategy.add_child Asset.new("AAPL")
-
-  backtest = Backtest.new(initial_cash: 1000.0_f64, data: data, strategy: strategy)
-
-  backtest.run
-
-  backtest.statistics.print_summary
-```
+See [`examples/`](examples/) directory for various examples on how to use this library.
 
 ## Alternatives
 
