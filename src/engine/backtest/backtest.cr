@@ -1,3 +1,5 @@
+require "colorize"
+
 module AlgoBacktester
   class Backtest
     property data : DataHandler
@@ -54,7 +56,8 @@ module AlgoBacktester
         end
 
         event = @event_queue.shift
-        puts "Processing: #{event.to_s}"
+
+        print_colorized_event(event)
 
         process_event(event)
 
@@ -85,6 +88,20 @@ module AlgoBacktester
       when FillEvent
         @portfolio.on_fill(event, @data)
         @statistics.track_transaction(event)
+      end
+    end
+
+    private def print_colorized_event(event : AbstractEvent)
+      kPrefix = "Processing: "
+      case event
+      when Bar
+        puts "#{kPrefix}#{event.to_s}".colorize(:default)
+      when SignalEvent
+        puts "#{kPrefix}#{event.to_s}".colorize(:blue)
+      when OrderEvent
+        puts "#{kPrefix}#{event.to_s}".colorize(:magenta)
+      when FillEvent
+        puts "#{kPrefix}#{event.to_s}".colorize(:yellow)
       end
     end
 

@@ -3,7 +3,7 @@
 # This strategy buys shares of Apple every month and holds them
 # until the backtest ends.
 
-# In your code, add "algo-backtest" to your shards.yml and
+# In your code, add "algo-backtester" to your shards.yml and
 # replace the following line with: require "algo-backtester"
 require "../src/algo-backtester"
 

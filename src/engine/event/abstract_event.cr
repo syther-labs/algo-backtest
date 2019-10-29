@@ -6,6 +6,9 @@ module AlgoBacktester
 
       def initialize(@timestamp : Time, @symbol : String)
       end
+
+      # Force subclasses to override to_s
+      abstract def to_s : String
     end
   end
 end

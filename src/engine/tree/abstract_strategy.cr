@@ -52,7 +52,6 @@ module AlgoBacktester::Tree
 
       @algos.run(self)
 
-      pp strategies()
       # pass event down to child strategies
       strategies().each do |strat|
         child_signals = strat.on_data(event)

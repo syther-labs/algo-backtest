@@ -83,7 +83,7 @@ module AlgoBacktester
         str << sprintf(kSummaryStrTemplate, "End Date", end_date.to_s("%Y-%m-%d"))
         str << sprintf(kSummaryStrTemplate, "# of events", "#{@event_history.size} events")
         str << sprintf(kSummaryStrTemplate, "# of transactions", "#{@transaction_history.size} events")
-        puts # -linebreak
+        str << "\n"
 
         str << sprintf(kSummaryFltTemplate, "Total equity return", total_equity_return())
         str << sprintf(kSummaryFltTemplate, "Sharpe ratio", sharpe_ratio(0.0))

@@ -25,8 +25,8 @@ module AlgoBacktester::Event
       return close
     end
 
-    def to_s
-      return "Bar on #{timestamp.to_s("%Y-%m-%d")} for #{symbol} (#{open}, #{high}, #{low}, #{close})"
+    def to_s : String
+      return "Bar(ts: #{timestamp.to_s("%Y-%m-%d")}, sym: #{symbol}, ohlc: (#{open}, #{high}, #{low}, #{close}))"
     end
   end
 end

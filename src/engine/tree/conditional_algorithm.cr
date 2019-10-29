@@ -16,7 +16,10 @@ module AlgoBacktester::Tree
         return {true, nil} if result_action
         return {false, AlgorithmError.new(("if condition met but result was false"))}
       end
-      return {true, nil} # If condition was not met
+
+      # If condition was not met, we don't want to end all successive algos
+      # so we return true to give them a chance to run.
+      return {true, nil}
     end
   end
 

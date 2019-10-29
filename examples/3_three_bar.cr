@@ -7,7 +7,7 @@
 # price will continue to down, since bears predominate in the market.
 # Algorithm Source: https://github.com/constverum/Quantdom
 
-# In your code, add "algo-backtest" to your shards.yml and
+# In your code, add "algo-backtester" to your shards.yml and
 # replace the following line with: require "algo-backtester"
 require "../src/algo-backtester"
 
