@@ -4,7 +4,7 @@ module AlgoBacktester::Tree
     property run_always : Bool
     getter value : Float64
 
-    def initialize(@run_always, @value)
+    def initialize(@run_always = false, @value = 0_f64)
     end
 
     abstract def run(strategy : AbstractStrategy) : {Bool, AlgorithmError?}

@@ -1,5 +1,5 @@
 module AlgoBacktester::Tree
-  class BiggerThanAlgorithm < AbstractAlgorithm
+  class GreaterThanAlgorithm < AbstractAlgorithm
     @first : AbstractAlgorithm
     @second : AbstractAlgorithm
 

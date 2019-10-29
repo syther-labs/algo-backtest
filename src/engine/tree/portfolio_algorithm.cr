@@ -2,8 +2,9 @@ module AlgoBacktester::Tree
   private abstract class AbstractPortfolioAlgorithm < AbstractAlgorithm
     @symbols : Array(String)
 
-    # Returns a simple true/false algo
-    def initialize(@symbols = Array(String), @run_always = false, @value = 0_f64)
+    # We initialize symbols to an empty array as an empty array indicates
+    # we want to compare with the current event's symbol.
+    def initialize(@symbols = [] of String, @run_always = false, @value = 0_f64)
       super(@run_always, @value)
     end
 

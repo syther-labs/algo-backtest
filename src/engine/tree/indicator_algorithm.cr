@@ -174,7 +174,7 @@ module AlgoBacktester::Tree
     end
   end
 
-  class SMA < IndicatorAlgorithm
+  class SMAAlgorithm < IndicatorAlgorithm
     def initialize(@period : Int64, @time_period : Float64 = 30.0)
       @run_always = true
       @value = 0_f64

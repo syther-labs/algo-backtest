@@ -8,18 +8,18 @@ def false_algo(value : Float64?)
   T::BoolAlgorithm.new(false, value: value || 0_f64)
 end
 
-describe T::BiggerThanAlgorithm do
+describe T::GreaterThanAlgorithm do
   it "should return true with no error if first's value is > second's value" do
     bigger = true_algo(2.0_f64)
     smaller = true_algo(1.0_f64)
-    ifa = T::BiggerThanAlgorithm.new(bigger, smaller)
+    ifa = T::GreaterThanAlgorithm.new(bigger, smaller)
     ifa.run(create_strat).should eq({true, nil})
   end
 
   it "should return false with error if first's value was not > second's value" do
     bigger = true_algo(2.0_f64)
     smaller = true_algo(1.0_f64)
-    ifa = T::BiggerThanAlgorithm.new(smaller, bigger)
+    ifa = T::GreaterThanAlgorithm.new(smaller, bigger)
     got = ifa.run(create_strat)
     got[0].should be_false
     got[1].is_a?(Exception).should be_true
@@ -28,14 +28,14 @@ describe T::BiggerThanAlgorithm do
   it "should return false with error if first or second algo doesn't return true" do
     bigger_true = true_algo(2.0_f64)
     smaller_false = false_algo(1.0_f64)
-    ifa = T::BiggerThanAlgorithm.new(bigger_true, smaller_false)
+    ifa = T::GreaterThanAlgorithm.new(bigger_true, smaller_false)
     got = ifa.run(create_strat)
     got[0].should be_false
     got[1].is_a?(Exception).should be_true
 
     bigger_false = false_algo(2.0_f64)
     smaller_true = true_algo(1.0_f64)
-    ifb = T::BiggerThanAlgorithm.new(bigger_false, smaller_true)
+    ifb = T::GreaterThanAlgorithm.new(bigger_false, smaller_true)
     got = ifb.run(create_strat)
     got[0].should be_false
     got[1].is_a?(Exception).should be_true
