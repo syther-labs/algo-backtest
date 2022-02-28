@@ -3,22 +3,43 @@ require "json"
 
 module AlgoBacktester::DataDownloader
   class TiingoDataDownloader < AbstractDataDownloader
-    private struct TiingoResponseBar
-      JSON.mapping(
-        adj_close: {type: Float64, setter: false, key: "adjClose"},
-        adj_high: {type: Float64, setter: false, key: "adjHigh"},
-        adj_low: {type: Float64, setter: false, key: "adjLow"},
-        adj_open: {type: Float64, setter: false, key: "adjOpen"},
-        adj_volume: {type: Int64, setter: false, key: "adjVolume"},
-        open: {type: Float64, setter: false},
-        close: {type: Float64, setter: false},
-        timestamp: {type: Time, key: "date"},
-        div_cash: {type: Float64, setter: false, key: "divCash"},
-        high: {type: Float64, setter: false},
-        low: {type: Float64, setter: false},
-        split_factor: {type: Float64, setter: false, key: "splitFactor"},
-        volume: {type: Int64, setter: false}
-      )
+    private class TiingoResponseBar
+      include JSON::Serializable
+    
+      @[JSON::Field(key: "my_key", emit_null: true)]
+      getter a : Int32?
+
+      @[JSON::Field(key: "adjClose")]
+      getter adj_close : Float64
+
+      @[JSON::Field(key: "adjHigh")]
+      getter adj_high : Float64
+
+      @[JSON::Field(key: "adjLow")]
+      getter adj_low : Float64
+
+      @[JSON::Field(key: "adjOpen")]
+      getter adj_open : Float64
+
+      @[JSON::Field(key: "adjVolume")]
+      getter adj_volume : Int64
+
+      getter open : Float64
+      getter close : Float64
+
+      @[JSON::Field(key: "date")]
+      property timestamp : Time
+
+      @[JSON::Field(key: "divCash")]
+      getter div_cash : Float64
+
+      getter high : Float64
+      getter low : Float64
+
+      @[JSON::Field(key: "splitFactor")]
+      getter split_factor : Float64
+
+      getter volume : Int64
     end
 
     BASE_URL = "https://api.tiingo.com/tiingo/daily"
