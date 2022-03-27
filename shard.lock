@@ -1,18 +1,18 @@
-version: 1.0
+version: 2.0
 shards:
   crystal_talib:
-    github: fridgerator/crystal_talib
+    git: https://github.com/fridgerator/crystal_talib.git
     version: 0.1.0
 
   habitat:
-    github: luckyframework/habitat
-    commit: 318b8386f1a1ac2b23745ffce91131348fdf97f5
+    git: https://github.com/luckyframework/habitat.git
+    version: 0.4.7
 
   halite:
-    github: icyleaf/halite
-    version: 0.10.4
+    git: https://github.com/icyleaf/halite.git
+    version: 0.12.1
 
   vcr:
-    github: spoved/vcr.cr
-    version: 0.2.2
+    git: https://github.com/spoved/vcr.cr.git
+    version: 0.5.2
 
